@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Alert, Button } from "@mantine/core";
+import { IoIosCreate } from "react-icons/io";
+import { ImCancelCircle } from "react-icons/im";
+
 const COINGECKO_PRICE_FEED_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=aave,wrapped-fantom,dai,usd-coin,tether,binance-usd,wrapped-bitcoin,chainlink,true-usd,frax&vs_currencies=usd";
 const Modal = ({ modal, setModal }) => {
@@ -199,13 +203,28 @@ const Modal = ({ modal, setModal }) => {
   return (
     <>
       {modal && (
-        <div
-          className="modal-container"
-          onClick={e => {
-            setModal(false);
-          }}
-        >
+        <div className="modal-container">
           <div className="index-token--container">
+            {/* ------------------Get Token Name and symbol ------------------*/}
+            {/* <fieldset>
+              <legend>Token Info</legend>
+              <div className="index-token">
+                <div className="token-label--container">
+                  <label className="token-name--label">Token Name - </label>
+                </div>
+                <div className="token-slider">
+                  <input type="text" className="token-name" id="token-name" />
+                </div>
+              </div>
+              <div className="index-token">
+                <div className="token-label--container">
+                  <label className="token-name--label">Token Symbol - </label>
+                </div>
+                <div className="token-slider">
+                  <input type="text" className="token-symbol" id="token-name" />
+                </div>
+              </div>
+            </fieldset> */}
             <fieldset>
               <legend>Index Token Percentage</legend>
               {/* DAI */}
@@ -410,9 +429,69 @@ const Modal = ({ modal, setModal }) => {
 
               <br />
             </fieldset>
-            <div className="approx-token-price--container">
-              Approx Value in USD : <span>${approxTokenPrice.toFixed(2)}</span>
-            </div>
+
+            <fieldset>
+              <legend>Update Token</legend>
+              <div className="approx-token-price--container">
+                Approx Value in USD :{" "}
+                <span>${approxTokenPrice.toFixed(2)}</span>
+              </div>
+              <span
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
+                }}
+              >
+                <Button variant="light" color="indigo">
+                  <span
+                    className="create-token--btn"
+                    style={{
+                      fontSize: "1.5rem",
+                      textDecoration: "none !important",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <IoIosCreate></IoIosCreate>
+                    <span
+                      style={{
+                        marginRight: "10px",
+                      }}
+                    ></span>
+                    Update Token
+                  </span>
+                </Button>
+
+                <Button
+                  variant="light"
+                  color="red"
+                  onClick={e => {
+                    setModal(false);
+                  }}
+                >
+                  <span
+                    className="create-token--btn"
+                    style={{
+                      fontSize: "1.5rem",
+                      textDecoration: "none !important",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <ImCancelCircle></ImCancelCircle>
+                    <span
+                      style={{
+                        marginRight: "10px",
+                      }}
+                    ></span>
+                    Cancel
+                  </span>
+                </Button>
+              </span>
+              <br />
+              <br />
+            </fieldset>
           </div>
         </div>
       )}
