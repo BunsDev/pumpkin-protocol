@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
     [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
   );
   const { connectors } = getDefaultWallets({
-    appName: "T-I-P DAO",
+    appName: "Crypt3",
     chains,
   });
   const wagmiClient = createClient({

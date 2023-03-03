@@ -18,342 +18,366 @@ const ViewTokens = () => {
       </div>
 
       <div className="view-token--container">
-        <div className="new__content">
-          <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
-          <h3 className="new__title">Token Name</h3>
-          {/* <span className="new__subtitle">Accessory</span> */}
-          <div className="new__prices">
-            <span className="new__subtitle">Approx value in USD ~ $14.99</span>
-          </div>
-          <br />
-          <div className="view-token--buttons">
-            <Button variant="light" color="indigo">
-              <span
-                className="edit-btn--container"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
-                }}
-              >
+        {!modal && (
+          <div className="new__content">
+            <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
+            <h3 className="new__title">Token Name</h3>
+            {/* <span className="new__subtitle">Accessory</span> */}
+            <div className="new__prices">
+              <span className="new__subtitle">
+                Approx value in USD ~ $14.99
+              </span>
+            </div>
+            <br />
+            <div className="view-token--buttons">
+              <Button variant="light" color="indigo">
                 <span
+                  className="edit-btn--container"
                   style={{
-                    fontSize: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
                   }}
                 >
-                  <GiTakeMyMoney></GiTakeMyMoney>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                    }}
+                  >
+                    <GiTakeMyMoney></GiTakeMyMoney>
+                  </span>
+                  Withdraw Underlying Tokens
                 </span>
-                Withdraw Underlying Tokens
-              </span>
-            </Button>
+              </Button>
 
-            <Button
-              color="indigo"
-              onClick={e => {
-                setModal(true);
-              }}
-            >
-              <span
-                className="edit-btn--container"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
+              <Button
+                color="indigo"
+                onClick={e => {
+                  setModal(true);
                 }}
               >
                 <span
+                  className="edit-btn--container"
                   style={{
-                    fontSize: "20px",
-                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
                   }}
                 >
-                  <MdCreate></MdCreate>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      color: "#fff",
+                    }}
+                  >
+                    <MdCreate></MdCreate>
+                  </span>
+                  Update Token Ratios
                 </span>
-                Update Token Ratios
+              </Button>
+            </div>
+          </div>
+        )}
+        {!modal && (
+          <div className="new__content">
+            <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
+            <h3 className="new__title">Token Name</h3>
+            {/* <span className="new__subtitle">Accessory</span> */}
+            <div className="new__prices">
+              <span className="new__subtitle">
+                Approx value in USD ~ $14.99
               </span>
-            </Button>
-          </div>
-        </div>
-        <div className="new__content">
-          <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
-          <h3 className="new__title">Token Name</h3>
-          {/* <span className="new__subtitle">Accessory</span> */}
-          <div className="new__prices">
-            <span className="new__subtitle">Approx value in USD ~ $14.99</span>
-          </div>
-          <br />
-          <div className="view-token--buttons">
-            <Button variant="light" color="indigo">
-              <span
-                className="edit-btn--container"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
-                }}
-              >
+            </div>
+            <br />
+            <div className="view-token--buttons">
+              <Button variant="light" color="indigo">
                 <span
+                  className="edit-btn--container"
                   style={{
-                    fontSize: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
                   }}
                 >
-                  <GiTakeMyMoney></GiTakeMyMoney>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                    }}
+                  >
+                    <GiTakeMyMoney></GiTakeMyMoney>
+                  </span>
+                  Withdraw Underlying Tokens
                 </span>
-                Withdraw Underlying Tokens
-              </span>
-            </Button>
+              </Button>
 
-            <Button
-              color="indigo"
-              onClick={e => {
-                setModal(true);
-              }}
-            >
-              <span
-                className="edit-btn--container"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
+              <Button
+                color="indigo"
+                onClick={e => {
+                  setModal(true);
                 }}
               >
                 <span
+                  className="edit-btn--container"
                   style={{
-                    fontSize: "20px",
-                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
                   }}
                 >
-                  <MdCreate></MdCreate>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      color: "#fff",
+                    }}
+                  >
+                    <MdCreate></MdCreate>
+                  </span>
+                  Update Token Ratios
                 </span>
-                Update Token Ratios
+              </Button>
+            </div>
+          </div>
+        )}
+        {!modal && (
+          <div className="new__content">
+            <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
+            <h3 className="new__title">Token Name</h3>
+            {/* <span className="new__subtitle">Accessory</span> */}
+            <div className="new__prices">
+              <span className="new__subtitle">
+                Approx value in USD ~ $14.99
               </span>
-            </Button>
-          </div>
-        </div>
-        <div className="new__content">
-          <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
-          <h3 className="new__title">Token Name</h3>
-          {/* <span className="new__subtitle">Accessory</span> */}
-          <div className="new__prices">
-            <span className="new__subtitle">Approx value in USD ~ $14.99</span>
-          </div>
-          <br />
-          <div className="view-token--buttons">
-            <Button variant="light" color="indigo">
-              <span
-                className="edit-btn--container"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
-                }}
-              >
+            </div>
+            <br />
+            <div className="view-token--buttons">
+              <Button variant="light" color="indigo">
                 <span
+                  className="edit-btn--container"
                   style={{
-                    fontSize: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
                   }}
                 >
-                  <GiTakeMyMoney></GiTakeMyMoney>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                    }}
+                  >
+                    <GiTakeMyMoney></GiTakeMyMoney>
+                  </span>
+                  Withdraw Underlying Tokens
                 </span>
-                Withdraw Underlying Tokens
-              </span>
-            </Button>
+              </Button>
 
-            <Button
-              color="indigo"
-              onClick={e => {
-                setModal(true);
-              }}
-            >
-              <span
-                className="edit-btn--container"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
+              <Button
+                color="indigo"
+                onClick={e => {
+                  setModal(true);
                 }}
               >
                 <span
+                  className="edit-btn--container"
                   style={{
-                    fontSize: "20px",
-                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
                   }}
                 >
-                  <MdCreate></MdCreate>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      color: "#fff",
+                    }}
+                  >
+                    <MdCreate></MdCreate>
+                  </span>
+                  Update Token Ratios
                 </span>
-                Update Token Ratios
+              </Button>
+            </div>
+          </div>
+        )}
+        {!modal && (
+          <div className="new__content">
+            <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
+            <h3 className="new__title">Token Name</h3>
+            {/* <span className="new__subtitle">Accessory</span> */}
+            <div className="new__prices">
+              <span className="new__subtitle">
+                Approx value in USD ~ $14.99
               </span>
-            </Button>
-          </div>
-        </div>
-        <div className="new__content">
-          <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
-          <h3 className="new__title">Token Name</h3>
-          {/* <span className="new__subtitle">Accessory</span> */}
-          <div className="new__prices">
-            <span className="new__subtitle">Approx value in USD ~ $14.99</span>
-          </div>
-          <br />
-          <div className="view-token--buttons">
-            <Button variant="light" color="indigo">
-              <span
-                className="edit-btn--container"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
-                }}
-              >
+            </div>
+            <br />
+            <div className="view-token--buttons">
+              <Button variant="light" color="indigo">
                 <span
+                  className="edit-btn--container"
                   style={{
-                    fontSize: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
                   }}
                 >
-                  <GiTakeMyMoney></GiTakeMyMoney>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                    }}
+                  >
+                    <GiTakeMyMoney></GiTakeMyMoney>
+                  </span>
+                  Withdraw Underlying Tokens
                 </span>
-                Withdraw Underlying Tokens
-              </span>
-            </Button>
+              </Button>
 
-            <Button
-              color="indigo"
-              onClick={e => {
-                setModal(true);
-              }}
-            >
-              <span
-                className="edit-btn--container"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
+              <Button
+                color="indigo"
+                onClick={e => {
+                  setModal(true);
                 }}
               >
                 <span
+                  className="edit-btn--container"
                   style={{
-                    fontSize: "20px",
-                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
                   }}
                 >
-                  <MdCreate></MdCreate>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      color: "#fff",
+                    }}
+                  >
+                    <MdCreate></MdCreate>
+                  </span>
+                  Update Token Ratios
                 </span>
-                Update Token Ratios
+              </Button>
+            </div>
+          </div>
+        )}
+        {!modal && (
+          <div className="new__content">
+            <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
+            <h3 className="new__title">Token Name</h3>
+            {/* <span className="new__subtitle">Accessory</span> */}
+            <div className="new__prices">
+              <span className="new__subtitle">
+                Approx value in USD ~ $14.99
               </span>
-            </Button>
-          </div>
-        </div>
-        <div className="new__content">
-          <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
-          <h3 className="new__title">Token Name</h3>
-          {/* <span className="new__subtitle">Accessory</span> */}
-          <div className="new__prices">
-            <span className="new__subtitle">Approx value in USD ~ $14.99</span>
-          </div>
-          <br />
-          <div className="view-token--buttons">
-            <Button variant="light" color="indigo">
-              <span
-                className="edit-btn--container"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
-                }}
-              >
+            </div>
+            <br />
+            <div className="view-token--buttons">
+              <Button variant="light" color="indigo">
                 <span
+                  className="edit-btn--container"
                   style={{
-                    fontSize: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
                   }}
                 >
-                  <GiTakeMyMoney></GiTakeMyMoney>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                    }}
+                  >
+                    <GiTakeMyMoney></GiTakeMyMoney>
+                  </span>
+                  Withdraw Underlying Tokens
                 </span>
-                Withdraw Underlying Tokens
-              </span>
-            </Button>
+              </Button>
 
-            <Button
-              color="indigo"
-              onClick={e => {
-                setModal(true);
-              }}
-            >
-              <span
-                className="edit-btn--container"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
+              <Button
+                color="indigo"
+                onClick={e => {
+                  setModal(true);
                 }}
               >
                 <span
+                  className="edit-btn--container"
                   style={{
-                    fontSize: "20px",
-                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
                   }}
                 >
-                  <MdCreate></MdCreate>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      color: "#fff",
+                    }}
+                  >
+                    <MdCreate></MdCreate>
+                  </span>
+                  Update Token Ratios
                 </span>
-                Update Token Ratios
+              </Button>
+            </div>
+          </div>
+        )}
+        {!modal && (
+          <div className="new__content">
+            <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
+            <h3 className="new__title">Token Name</h3>
+            {/* <span className="new__subtitle">Accessory</span> */}
+            <div className="new__prices">
+              <span className="new__subtitle">
+                Approx value in USD ~ $14.99
               </span>
-            </Button>
-          </div>
-        </div>
-        <div className="new__content">
-          <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
-          <h3 className="new__title">Token Name</h3>
-          {/* <span className="new__subtitle">Accessory</span> */}
-          <div className="new__prices">
-            <span className="new__subtitle">Approx value in USD ~ $14.99</span>
-          </div>
-          <br />
-          <div className="view-token--buttons">
-            <Button variant="light" color="indigo">
-              <span
-                className="edit-btn--container"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
-                }}
-              >
+            </div>
+            <br />
+            <div className="view-token--buttons">
+              <Button variant="light" color="indigo">
                 <span
+                  className="edit-btn--container"
                   style={{
-                    fontSize: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
                   }}
                 >
-                  <GiTakeMyMoney></GiTakeMyMoney>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                    }}
+                  >
+                    <GiTakeMyMoney></GiTakeMyMoney>
+                  </span>
+                  Withdraw Underlying Tokens
                 </span>
-                Withdraw Underlying Tokens
-              </span>
-            </Button>
+              </Button>
 
-            <Button
-              color="indigo"
-              onClick={e => {
-                setModal(true);
-              }}
-            >
-              <span
-                className="edit-btn--container"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
+              <Button
+                color="indigo"
+                onClick={e => {
+                  setModal(true);
                 }}
               >
                 <span
+                  className="edit-btn--container"
                   style={{
-                    fontSize: "20px",
-                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
                   }}
                 >
-                  <MdCreate></MdCreate>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      color: "#fff",
+                    }}
+                  >
+                    <MdCreate></MdCreate>
+                  </span>
+                  Update Token Ratios
                 </span>
-                Update Token Ratios
-              </span>
-            </Button>
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );
