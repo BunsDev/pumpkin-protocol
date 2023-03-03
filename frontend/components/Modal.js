@@ -20,7 +20,7 @@ const Modal = ({ modal, setModal }) => {
   const [aave, setAave] = useState(0);
   const [tusd, setTusd] = useState(0);
   const [frax, setFrax] = useState(0);
-
+  const [tokenAddress, setTokenAddress] = useState("");
   const calculateIndexTokenPrice = () => {
     const price =
       (dai / 100) * parseFloat(coinPriceData[tokenSymbolAddress.dai.id].usd) +
@@ -205,26 +205,27 @@ const Modal = ({ modal, setModal }) => {
       {modal && (
         <div className="modal-container">
           <div className="index-token--container">
-            {/* ------------------Get Token Name and symbol ------------------*/}
-            {/* <fieldset>
+            {/* ------------------Get Token Address ------------------*/}
+            <fieldset>
               <legend>Token Info</legend>
               <div className="index-token">
                 <div className="token-label--container">
-                  <label className="token-name--label">Token Name - </label>
+                  <label className="token-name--label">Token Address - </label>
                 </div>
                 <div className="token-slider">
-                  <input type="text" className="token-name" id="token-name" />
+                  <input
+                    required
+                    type="text"
+                    className="token-name"
+                    id="token-name"
+                    placeholder="0x..."
+                    onChange={e => {
+                      setTokenAddress(e.target.value);
+                    }}
+                  />
                 </div>
               </div>
-              <div className="index-token">
-                <div className="token-label--container">
-                  <label className="token-name--label">Token Symbol - </label>
-                </div>
-                <div className="token-slider">
-                  <input type="text" className="token-symbol" id="token-name" />
-                </div>
-              </div>
-            </fieldset> */}
+            </fieldset>
             <fieldset>
               <legend>Index Token Percentage</legend>
               {/* DAI */}
@@ -234,6 +235,7 @@ const Modal = ({ modal, setModal }) => {
                 </div>
                 <div className="token-slider">
                   <input
+                    required
                     type="range"
                     className="depend"
                     min="0"
@@ -254,6 +256,7 @@ const Modal = ({ modal, setModal }) => {
                 </div>
                 <div className="token-slider">
                   <input
+                    required
                     type="range"
                     className="depend"
                     min="0"
@@ -274,6 +277,7 @@ const Modal = ({ modal, setModal }) => {
                 </div>
                 <div className="token-slider">
                   <input
+                    required
                     type="range"
                     className="depend"
                     min="0"
@@ -294,6 +298,7 @@ const Modal = ({ modal, setModal }) => {
                 </div>
                 <div className="token-slider">
                   <input
+                    required
                     type="range"
                     className="depend"
                     min="0"
@@ -314,6 +319,7 @@ const Modal = ({ modal, setModal }) => {
                 </div>
                 <div className="token-slider">
                   <input
+                    required
                     type="range"
                     className="depend"
                     min="0"
@@ -334,6 +340,7 @@ const Modal = ({ modal, setModal }) => {
                 </div>
                 <div className="token-slider">
                   <input
+                    required
                     type="range"
                     className="depend"
                     min="0"
@@ -354,6 +361,7 @@ const Modal = ({ modal, setModal }) => {
                 </div>
                 <div className="token-slider">
                   <input
+                    required
                     type="range"
                     className="depend"
                     min="0"
@@ -374,6 +382,7 @@ const Modal = ({ modal, setModal }) => {
                 </div>
                 <div className="token-slider">
                   <input
+                    required
                     type="range"
                     className="depend"
                     min="0"
@@ -394,6 +403,7 @@ const Modal = ({ modal, setModal }) => {
                 </div>
                 <div className="token-slider">
                   <input
+                    required
                     type="range"
                     className="depend"
                     min="0"
@@ -414,6 +424,7 @@ const Modal = ({ modal, setModal }) => {
                 </div>
                 <div className="token-slider">
                   <input
+                    required
                     type="range"
                     className="depend"
                     min="0"
@@ -468,6 +479,17 @@ const Modal = ({ modal, setModal }) => {
                   color="red"
                   onClick={e => {
                     setModal(false);
+                    setDai(0);
+                    setUsdc(0);
+                    setUsdt(0);
+                    setBusd(0);
+                    setWbtc(0);
+                    setLink(0);
+                    setWftm(0);
+                    setAave(0);
+                    setTusd(0);
+                    setFrax(0);
+                    setApproxTokenPrice(0);
                   }}
                 >
                   <span
