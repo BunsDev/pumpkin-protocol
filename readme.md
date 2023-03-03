@@ -3,7 +3,7 @@
 # 🎃Pumpkin Index 🎃
 
 ## What is an index token?
-#####❓ An index token is like a basket that holds many different types of cryptocurrencies at once, allowing investors to invest in several cryptocurrencies through one token.
+##### ❓ An index token is like a basket that holds many different types of cryptocurrencies at once, allowing investors to invest in several cryptocurrencies through one token.
 
 ## Inspiration
 
