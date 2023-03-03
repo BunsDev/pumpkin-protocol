@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Alert } from "@mantine/core";
+import { Alert, Button } from "@mantine/core";
+import { IoIosCreate } from "react-icons/io";
 const COINGECKO_PRICE_FEED_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=aave,wrapped-fantom,dai,usd-coin,tether,binance-usd,wrapped-bitcoin,chainlink,true-usd,frax&vs_currencies=usd";
 
@@ -208,6 +209,25 @@ const CreateIndexToken = () => {
       </div>
       <div className="index-token--container">
         <fieldset>
+          <legend>Token Info</legend>
+          <div className="index-token">
+            <div className="token-label--container">
+              <label className="token-name--label">Token Name - </label>
+            </div>
+            <div className="token-slider">
+              <input type="text" className="token-name" id="token-name" />
+            </div>
+          </div>
+          <div className="index-token">
+            <div className="token-label--container">
+              <label className="token-name--label">Token Symbol - </label>
+            </div>
+            <div className="token-slider">
+              <input type="text" className="token-symbol" id="token-name" />
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
           <legend>Index Token Percentage</legend>
           {/* DAI */}
           <div className="underlying-token">
@@ -411,9 +431,28 @@ const CreateIndexToken = () => {
 
           <br />
         </fieldset>
-        <div className="approx-token-price--container">
-          Approx Value in USD : <span>${approxTokenPrice.toFixed(2)}</span>
-        </div>
+        <fieldset>
+          <legend>Token Action</legend>
+          <div className="approx-token-price--container">
+            Approx Value in USD : <span>${approxTokenPrice.toFixed(2)}</span>
+          </div>
+          <Button variant="light" color="indigo">
+            <span
+              className="create-token--btn"
+              style={{
+                fontSize: "1.5rem",
+                textDecoration: "none !important",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <IoIosCreate></IoIosCreate>
+              Create Token
+            </span>
+          </Button>
+          <br />
+          <br />
+        </fieldset>
       </div>
     </>
   );
