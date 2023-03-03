@@ -20,6 +20,9 @@ const CreateIndexToken = () => {
   const [tusd, setTusd] = useState(0);
   const [frax, setFrax] = useState(0);
 
+  const [tokenName, setTokenName] = useState("");
+  const [tokenSymbol, setTokenSymbol] = useState("");
+
   const calculateIndexTokenPrice = () => {
     const price =
       (dai / 100) * parseFloat(coinPriceData[tokenSymbolAddress.dai.id].usd) +
@@ -215,7 +218,15 @@ const CreateIndexToken = () => {
               <label className="token-name--label">Token Name - </label>
             </div>
             <div className="token-slider">
-              <input type="text" className="token-name" id="token-name" />
+              <input
+                required
+                type="text"
+                className="token-name"
+                id="token-name"
+                onChange={e => {
+                  setTokenName(e.target.value);
+                }}
+              />
             </div>
           </div>
           <div className="index-token">
@@ -223,7 +234,15 @@ const CreateIndexToken = () => {
               <label className="token-name--label">Token Symbol - </label>
             </div>
             <div className="token-slider">
-              <input type="text" className="token-symbol" id="token-name" />
+              <input
+                required
+                type="text"
+                className="token-symbol"
+                id="token-name"
+                onChange={e => {
+                  setTokenSymbol(e.target.value);
+                }}
+              />
             </div>
           </div>
         </fieldset>
@@ -236,6 +255,7 @@ const CreateIndexToken = () => {
             </div>
             <div className="token-slider">
               <input
+                required
                 type="range"
                 className="depend"
                 min="0"
@@ -256,6 +276,7 @@ const CreateIndexToken = () => {
             </div>
             <div className="token-slider">
               <input
+                required
                 type="range"
                 className="depend"
                 min="0"
@@ -276,6 +297,7 @@ const CreateIndexToken = () => {
             </div>
             <div className="token-slider">
               <input
+                required
                 type="range"
                 className="depend"
                 min="0"
@@ -296,6 +318,7 @@ const CreateIndexToken = () => {
             </div>
             <div className="token-slider">
               <input
+                required
                 type="range"
                 className="depend"
                 min="0"
@@ -316,6 +339,7 @@ const CreateIndexToken = () => {
             </div>
             <div className="token-slider">
               <input
+                required
                 type="range"
                 className="depend"
                 min="0"
@@ -336,6 +360,7 @@ const CreateIndexToken = () => {
             </div>
             <div className="token-slider">
               <input
+                required
                 type="range"
                 className="depend"
                 min="0"
@@ -356,6 +381,7 @@ const CreateIndexToken = () => {
             </div>
             <div className="token-slider">
               <input
+                required
                 type="range"
                 className="depend"
                 min="0"
@@ -376,6 +402,7 @@ const CreateIndexToken = () => {
             </div>
             <div className="token-slider">
               <input
+                required
                 type="range"
                 className="depend"
                 min="0"
@@ -396,6 +423,7 @@ const CreateIndexToken = () => {
             </div>
             <div className="token-slider">
               <input
+                required
                 type="range"
                 className="depend"
                 min="0"
@@ -416,6 +444,7 @@ const CreateIndexToken = () => {
             </div>
             <div className="token-slider">
               <input
+                required
                 type="range"
                 className="depend"
                 min="0"

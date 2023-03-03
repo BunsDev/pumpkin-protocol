@@ -1032,9 +1032,10 @@ legend {
 .token-slider label {
   font-weight: 600;
 }
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
   background-color: transparent;
-  backdrop-filter: blur(20px) invert(1);
+  backdrop-filter: blur(20px);
   /* background: linear-gradient(to top right, #380b9f 20%, #53a9e7); */
   color: #fff;
   border: 2px solid #fff;
@@ -1047,7 +1048,8 @@ input[type="text"] {
   font-style: italic;
 }
 input[type="range"],
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
   min-width: 0;
   flex-basis: 95%;
 }
@@ -1143,7 +1145,8 @@ hr {
   word-wrap: break-word;
 }
 
-.view-token--buttons .mantine-wpz84t {
+.view-token--buttons .mantine-wpz84t,
+.view-token--buttons .mantine-1sy6mp7 {
   margin-top: 14px;
 }
 
