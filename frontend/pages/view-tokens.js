@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@mantine/core";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { MdCreate } from "react-icons/md";
-const viewTokens = () => {
+import Modal from "../components/Modal";
+
+const ViewTokens = () => {
+  const [modal, setModal] = useState(true);
+
   return (
     <>
+      <Modal setModal={setModal} modal={modal}></Modal>
       <div className="bg-container">
         <div className="circle circle1"></div>
         <div className="circle circle2"></div>
@@ -45,7 +50,7 @@ const viewTokens = () => {
             <Button
               color="indigo"
               onClick={e => {
-                console.log("ButtonCLick");
+                setModal(true);
               }}
             >
               <span
@@ -64,7 +69,7 @@ const viewTokens = () => {
                 >
                   <MdCreate></MdCreate>
                 </span>
-                Update Token Percentages
+                Update Token Ratios
               </span>
             </Button>
           </div>
@@ -101,7 +106,7 @@ const viewTokens = () => {
             <Button
               color="indigo"
               onClick={e => {
-                console.log("ButtonCLick");
+                setModal(true);
               }}
             >
               <span
@@ -120,7 +125,7 @@ const viewTokens = () => {
                 >
                   <MdCreate></MdCreate>
                 </span>
-                Update Token Percentages
+                Update Token Ratios
               </span>
             </Button>
           </div>
@@ -157,7 +162,7 @@ const viewTokens = () => {
             <Button
               color="indigo"
               onClick={e => {
-                console.log("ButtonCLick");
+                setModal(true);
               }}
             >
               <span
@@ -176,7 +181,7 @@ const viewTokens = () => {
                 >
                   <MdCreate></MdCreate>
                 </span>
-                Update Token Percentages
+                Update Token Ratios
               </span>
             </Button>
           </div>
@@ -213,7 +218,7 @@ const viewTokens = () => {
             <Button
               color="indigo"
               onClick={e => {
-                console.log("ButtonCLick");
+                setModal(true);
               }}
             >
               <span
@@ -232,7 +237,7 @@ const viewTokens = () => {
                 >
                   <MdCreate></MdCreate>
                 </span>
-                Update Token Percentages
+                Update Token Ratios
               </span>
             </Button>
           </div>
@@ -269,7 +274,7 @@ const viewTokens = () => {
             <Button
               color="indigo"
               onClick={e => {
-                console.log("ButtonCLick");
+                setModal(true);
               }}
             >
               <span
@@ -288,7 +293,7 @@ const viewTokens = () => {
                 >
                   <MdCreate></MdCreate>
                 </span>
-                Update Token Percentages
+                Update Token Ratios
               </span>
             </Button>
           </div>
@@ -325,7 +330,7 @@ const viewTokens = () => {
             <Button
               color="indigo"
               onClick={e => {
-                console.log("ButtonCLick");
+                setModal(true);
               }}
             >
               <span
@@ -344,7 +349,7 @@ const viewTokens = () => {
                 >
                   <MdCreate></MdCreate>
                 </span>
-                Update Token Percentages
+                Update Token Ratios
               </span>
             </Button>
           </div>
@@ -354,4 +359,4 @@ const viewTokens = () => {
   );
 };
 
-export default viewTokens;
+export default ViewTokens;
