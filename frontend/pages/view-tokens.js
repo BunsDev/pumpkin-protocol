@@ -3,17 +3,20 @@ import { Button } from "@mantine/core";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { MdCreate } from "react-icons/md";
 import Modal from "../components/Modal";
+
 const ViewTokens = () => {
   const [modal, setModal] = useState(true);
+
   return (
     <>
+      <Modal setModal={setModal} modal={modal}></Modal>
       <div className="bg-container">
         <div className="circle circle1"></div>
         <div className="circle circle2"></div>
         <div className="circle circle3"></div>
         <div className="circle circle4"></div>
       </div>
-      <Modal setModal={setModal} modal={modal}></Modal>
+
       <div className="view-token--container">
         <div className="new__content">
           <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
