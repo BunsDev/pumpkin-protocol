@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@mantine/core";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { MdCreate } from "react-icons/md";
-const viewTokens = () => {
+import Modal from "../components/Modal";
+const ViewTokens = () => {
+  const [modal, setModal] = useState(true);
   return (
     <>
       <div className="bg-container">
@@ -11,7 +13,7 @@ const viewTokens = () => {
         <div className="circle circle3"></div>
         <div className="circle circle4"></div>
       </div>
-
+      <Modal setModal={setModal} modal={modal}></Modal>
       <div className="view-token--container">
         <div className="new__content">
           <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
@@ -45,7 +47,7 @@ const viewTokens = () => {
             <Button
               color="indigo"
               onClick={e => {
-                console.log("ButtonCLick");
+                setModal(true);
               }}
             >
               <span
@@ -64,7 +66,7 @@ const viewTokens = () => {
                 >
                   <MdCreate></MdCreate>
                 </span>
-                Update Token Percentages
+                Update Token Ratios
               </span>
             </Button>
           </div>
@@ -101,7 +103,7 @@ const viewTokens = () => {
             <Button
               color="indigo"
               onClick={e => {
-                console.log("ButtonCLick");
+                setModal(true);
               }}
             >
               <span
@@ -120,7 +122,7 @@ const viewTokens = () => {
                 >
                   <MdCreate></MdCreate>
                 </span>
-                Update Token Percentages
+                Update Token Ratios
               </span>
             </Button>
           </div>
@@ -157,7 +159,7 @@ const viewTokens = () => {
             <Button
               color="indigo"
               onClick={e => {
-                console.log("ButtonCLick");
+                setModal(true);
               }}
             >
               <span
@@ -176,7 +178,7 @@ const viewTokens = () => {
                 >
                   <MdCreate></MdCreate>
                 </span>
-                Update Token Percentages
+                Update Token Ratios
               </span>
             </Button>
           </div>
@@ -213,7 +215,7 @@ const viewTokens = () => {
             <Button
               color="indigo"
               onClick={e => {
-                console.log("ButtonCLick");
+                setModal(true);
               }}
             >
               <span
@@ -232,7 +234,7 @@ const viewTokens = () => {
                 >
                   <MdCreate></MdCreate>
                 </span>
-                Update Token Percentages
+                Update Token Ratios
               </span>
             </Button>
           </div>
@@ -269,7 +271,7 @@ const viewTokens = () => {
             <Button
               color="indigo"
               onClick={e => {
-                console.log("ButtonCLick");
+                setModal(true);
               }}
             >
               <span
@@ -288,7 +290,7 @@ const viewTokens = () => {
                 >
                   <MdCreate></MdCreate>
                 </span>
-                Update Token Percentages
+                Update Token Ratios
               </span>
             </Button>
           </div>
@@ -325,7 +327,7 @@ const viewTokens = () => {
             <Button
               color="indigo"
               onClick={e => {
-                console.log("ButtonCLick");
+                setModal(true);
               }}
             >
               <span
@@ -344,7 +346,7 @@ const viewTokens = () => {
                 >
                   <MdCreate></MdCreate>
                 </span>
-                Update Token Percentages
+                Update Token Ratios
               </span>
             </Button>
           </div>
@@ -354,4 +356,4 @@ const viewTokens = () => {
   );
 };
 
-export default viewTokens;
+export default ViewTokens;
