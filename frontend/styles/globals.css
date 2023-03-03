@@ -997,7 +997,10 @@ button {
   border-radius: 10px;
   padding: 2rem 5rem;
 }
-
+label {
+  text-decoration: underline;
+  font-weight: 600;
+}
 .underlying-token {
   display: flex;
   width: 50vw;
@@ -1005,6 +1008,21 @@ button {
   align-items: center;
   margin: 0 auto;
   flex-wrap: wrap;
+}
+.index-token {
+  display: flex;
+  width: 50vw;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  font-size: 1.5rem;
+  padding: 12px 24px;
+}
+legend {
+  padding: 0 10px;
+  font-size: 2.2rem !important;
+  font-weight: 600;
 }
 .token-slider {
   display: flex;
@@ -1014,10 +1032,30 @@ button {
 .token-slider label {
   font-weight: 600;
 }
-input[type="range"] {
+input[type="text"] {
+  background-color: transparent;
+  backdrop-filter: blur(20px) invert(1);
+  /* background: linear-gradient(to top right, #380b9f 20%, #53a9e7); */
+  color: #fff;
+  border: 2px solid #fff;
+  /* border-image: linear-gradient(to top right, #380b9f 20%, #53a9e7); */
+  font-size: 1.5rem;
+  border-radius: 10px;
+  font-weight: 500;
+  letter-spacing: 1.1px;
+  padding: 2px 5px;
+  font-style: italic;
+}
+input[type="range"],
+input[type="text"] {
   min-width: 0;
   flex-basis: 95%;
 }
+
+input[type="range"] {
+  background-color: #a2d8ff !important;
+}
+
 .approx-token-price--container {
   flex-grow: 1;
   font-size: 2.2rem;
@@ -1079,7 +1117,12 @@ fieldset {
 legend {
   font-size: 1.2rem;
 }
-
+fieldset .approx-token-price--container {
+  margin-bottom: 1rem;
+}
+.create-token--btn {
+  text-decoration: none !important;
+}
 /* View token page */
 .new__content {
   background: rgba(255, 255, 255, 0.068);
@@ -1119,6 +1162,7 @@ hr {
   bottom: 0;
   z-index: 900;
 }
+
 @media screen and (max-width: 768px) {
   .token-slider {
     width: 80%;
