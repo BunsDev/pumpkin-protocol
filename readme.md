@@ -1,4 +1,4 @@
-# Deployed URL : [Crypt3](https://crypt3-fantom-9givim3o4-justuzair.vercel.app/)
+# Deployed URL : [Crypt3](https://crypt3-fantom.vercel.app/)
 
 # 🎃Pumpkin Index 🎃
 
