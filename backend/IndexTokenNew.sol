@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import "./interfaces/IERC20.sol";
 import "./interfaces/IUniswapV2Router/IUniswapV2Router.sol";
-import "./interfaces/IUniswapV2Factory/IUniswapV2Factory.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract IndexTokenNew is IERC20 {
@@ -24,7 +23,6 @@ contract IndexTokenNew is IERC20 {
 
     address spookySwapAddress = 0xF491e7B69E4244ad4002BC14e878a34207E38c29;
     IUniswapV2Router02 spookySwap = IUniswapV2Router02(spookySwapAddress);
-    IUniswapV2Factory spookySwapFactory = IUniswapV2Factory(0x152eE697f2E276fA89E96742e9bB9aB1F2E61bE3);
     address wFTMAddr = 0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83;
 
 
