@@ -1,4 +1,4 @@
-# Deployed URL : [Crypt3](https://crypt3-fantom.vercel.app/)
+# Deployed URL : [LIVE WEBSITE](https://pumpkin-protocol-fantom.vercel.app)
 
 # 🎃Pumpkin Index 🎃
 
