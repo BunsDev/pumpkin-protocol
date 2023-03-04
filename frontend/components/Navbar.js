@@ -7,10 +7,11 @@ const Navbar = () => {
   return (
     <header className="header" id="header">
       <nav className="nav container">
-        <a href="/" className="nav__logo">
-          {" "}
-          Pumpkin Index{" "}
-        </a>
+        <Link href="/" className="nav__logo">
+          <p>
+          Pumpkin Index
+          </p>
+        </Link>
         <div className="nav__menu" id="nav-menu">
           <ul className="nav__list">
 
