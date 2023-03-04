@@ -12,8 +12,10 @@ import PUMPKIN_ABI from "../constants/PUMPKIN_ABI";
 import ERC_ABI from "../constants/ERC20_ABI.json";
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import { PumpkinAddress } from "../constants/PumpkinAddress";
+import { useNotification } from "web3uikit";
 
 const ViewTokens = () => {
+  const dispatch = useNotification();
   const { runContractFunction } = useWeb3Contract();
   const {
     enableWeb3,
@@ -46,6 +48,12 @@ const ViewTokens = () => {
         onSuccess: data => {
           console.log(data);
           setTokens(data);
+          dispatch({
+            type: "success",
+            message: `Tokens Fetched`,
+            title: "Tokens Fetched Successfully",
+            position: "bottomR",
+          });
         },
       });
 
@@ -100,8 +108,14 @@ const ViewTokens = () => {
                 {/* <span className="new__subtitle">Accessory</span> */}
 
                 <div className="new__prices">
-                  <span className="new__subtitle">
-                    Approx value in USD ~ $14.99
+                  <span
+                    className="new__subtitle index-token--address"
+                    title="Copy To Clipboard"
+                    onClick={e => {
+                      navigator.clipboard.writeText(e.target.innerHTML);
+                    }}
+                  >
+                    {item.toString()}
                   </span>
                 </div>
                 <br />
