@@ -8,6 +8,7 @@ import Script from "next/script";
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
+import { NotificationProvider } from "web3uikit";
 
 import { fantom, fantomTestnet } from "wagmi/chains";
 
@@ -54,8 +55,10 @@ function MyApp({ Component, pageProps }) {
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains}>
           <MoralisProvider initializeOnMount={false}>
-            <Navbar></Navbar>
-            <Component {...pageProps} />
+            <NotificationProvider>
+              <Navbar></Navbar>
+              <Component {...pageProps} />
+            </NotificationProvider>
           </MoralisProvider>
         </RainbowKitProvider>
       </WagmiConfig>

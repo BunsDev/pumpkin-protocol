@@ -1134,7 +1134,12 @@ fieldset .approx-token-price--container {
   box-shadow: 0 8px 32px 0 rgb(0 0 0 / 48%);
   border-radius: 10px;
 }
-
+.index-token--address {
+  padding: 0 10px;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
 hr {
   border: 0.25px solid #fff;
 }
