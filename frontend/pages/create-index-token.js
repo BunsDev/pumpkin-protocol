@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Alert, Button } from "@mantine/core";
 import { IoIosCreate } from "react-icons/io";
-const { ethers } = require("ethers");
-const PUMPKIN_ABI = "PUMPKIN_ABI";
+import { ethers } from "ethers";
+import PUMPKIN_ABI from "./PUMPKIN_ABI";
 
 const COINGECKO_PRICE_FEED_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=aave,wrapped-fantom,dai,usd-coin,tether,binance-usd,wrapped-bitcoin,chainlink,true-usd,frax&vs_currencies=usd";
@@ -35,9 +35,9 @@ const CreateIndexToken = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
-    //const USDC = new ethers.Contract(USDCAddress, PUMPKIN_ABI, provider )
-    //const USDCWithSigner = USDC.connect(signer);
-    //await USDCWithSigner.approve(PumpkinAddress, "1000000")
+    const USDC = new ethers.Contract(USDCAddress, PUMPKIN_ABI, provider )
+    const USDCWithSigner = USDC.connect(signer);
+    await USDCWithSigner.approve(PumpkinAddress, "1000000")
   }
   
 

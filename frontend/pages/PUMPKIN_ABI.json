@@ -1,4 +1,4 @@
-export const PUMPKIN_ABI = [
+[
 	{
 		"anonymous": false,
 		"inputs": [
