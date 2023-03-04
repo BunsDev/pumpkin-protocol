@@ -14,7 +14,7 @@ contract PumpkinFactory {
 
         //create new index token
         IndexTokenNew newToken = new IndexTokenNew(msg.sender, _tokens, _percentages, _name, _symbol);
-        tokenCount[msg.sender]++;
+        ++tokenCount[msg.sender];
         //map msg.sender's tokenCounter to new token to msg.sender
         addressToTokens[msg.sender][tokenCount[msg.sender]] = address(newToken);   
     }
@@ -60,9 +60,9 @@ contract PumpkinFactory {
     /// @param _creator = address of user
     function getAllTokenAddresses(address _creator) public view returns (address[] memory) {
         uint numTokens = tokenCount[_creator];
-        address[] memory tokenAddresses; 
-        for(uint i = 1; i < numTokens; i++ ) {
-            tokenAddresses[i] = addressToTokens[_creator][i];  
+        address[] memory tokenAddresses = new address[](numTokens); 
+        for(uint i = 0; i < numTokens; i++ ) {
+            tokenAddresses[i] = addressToTokens[_creator][i+1];  
         }
         return tokenAddresses;
     }
@@ -104,7 +104,7 @@ contract PumpkinFactory {
     /// @param _indexAddress = address of index token
     function getAllAmounts(address _indexAddress) public view returns (uint[] memory) {
         uint numOfTokens = IndexTokenNew(_indexAddress).getNumOfTokens();
-        uint[] memory tokenAmounts; 
+        uint[] memory tokenAmounts = new uint[](numOfTokens); 
         for(uint i; i < numOfTokens; i++ ) {
             uint tokenAmount = getSingleAmount(_indexAddress, i);
             tokenAmounts[i] = tokenAmount;
@@ -118,7 +118,15 @@ contract PumpkinFactory {
     /// @param underlyingIndex = index of Index token's underlying assets array
     function getSingleAmount(address _indexAddress, uint underlyingIndex) public view returns (uint) {
         address underlyingToken = getSingleUnderlying(_indexAddress, underlyingIndex);
-        return IERC20(underlyingToken).balanceOf(address(this));
+        return IERC20(underlyingToken).balanceOf(_indexAddress);
+    }
+
+    function getName(address _indexAddress) public view returns (string memory) {
+        return IndexTokenNew(_indexAddress).getName();
+    }
+
+    function getSymbol(address _indexAddress) public view returns (string memory) {
+        return IndexTokenNew(_indexAddress).getSymbol();
     }
     
 }
