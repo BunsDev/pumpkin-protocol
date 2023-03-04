@@ -68,11 +68,11 @@ contract IndexTokenNew is IERC20 {
             address _token = tokens[i];
 
             uint transferAmount = getMinToken(i, amount);
-            bool success = IERC20(_token).transferFrom(msg.sender,address(this), transferAmount);
+            bool success = IERC20(_token).transferFrom(tx.origin,address(this), transferAmount);
             require(success, "transfer failed");
         }
         //add to holders array
-        holders.push(msg.sender);
+        holders.push(tx.origin);
 
         _mint(amount);
     }
@@ -81,7 +81,7 @@ contract IndexTokenNew is IERC20 {
 
     function redeem(uint amount) public {
         //get number of tokens using length
-        require(amount <= balanceOf[msg.sender] );
+        require(amount <= balanceOf[tx.origin] );
 
         uint numOfTokens = tokens.length;
         address[] memory _tokens = tokens;
@@ -91,18 +91,18 @@ contract IndexTokenNew is IERC20 {
             address _token = _tokens[i];
 
             uint transferAmount = getMinToken(i, amount);
-            IERC20(_token).approve(msg.sender, transferAmount);
-            bool success = IERC20(_token).transfer(msg.sender, transferAmount);
+            IERC20(_token).approve(tx.origin, transferAmount);
+            bool success = IERC20(_token).transfer(tx.origin, transferAmount);
             require(success, "transfer failed");
         }
 
-        burn(msg.sender,amount); 
+        burn(tx.origin,amount); 
     }
 
 
     //owner withdraw streaming fee
     function streamingFee() public  {
-        require(msg.sender == owner, "Not owner!");
+        require(tx.origin == owner, "Not owner!");
 
         address[] memory _holders = holders;
 
@@ -154,7 +154,7 @@ contract IndexTokenNew is IERC20 {
     }
 
     function rebalancePercentages() public {  
-        require(msg.sender == owner); 
+        require(tx.origin == owner); 
         uint numOfTokens = tokens.length;
 
         uint total;
@@ -193,6 +193,14 @@ contract IndexTokenNew is IERC20 {
         
     }
 
+    function getName() public view returns (string memory) {
+        return name;
+    }
+
+    function getSymbol() public view returns (string memory) {
+        return symbol;
+    }
+
     function getPercentages(uint i) public view returns (uint) {
         return percentages[i];
     }
@@ -204,19 +212,19 @@ contract IndexTokenNew is IERC20 {
 
 
     function transfer(address recipient, uint amount) external returns (bool) {
-        balanceOf[msg.sender] -= amount;
+        balanceOf[tx.origin] -= amount;
         balanceOf[recipient] += amount;
 
         //add to holders array
         holders.push(recipient);
 
-        emit Transfer(msg.sender, recipient, amount);
+        emit Transfer(tx.origin, recipient, amount);
         return true;
     }
 
     function approve(address spender, uint amount) external returns (bool) {
-        allowance[msg.sender][spender] = amount;
-        emit Approval(msg.sender, spender, amount);
+        allowance[tx.origin][spender] = amount;
+        emit Approval(tx.origin, spender, amount);
         return true;
     }
 
@@ -225,7 +233,7 @@ contract IndexTokenNew is IERC20 {
         address recipient,
         uint amount
     ) external returns (bool) {
-        allowance[sender][msg.sender] -= amount;
+        allowance[sender][tx.origin] -= amount;
         balanceOf[sender] -= amount;
         balanceOf[recipient] += amount;
 
@@ -239,16 +247,16 @@ contract IndexTokenNew is IERC20 {
     }
 
     function _mint(uint amount) internal {
-        balanceOf[msg.sender] += amount;
+        balanceOf[tx.origin] += amount;
         totalSupply += amount;
 
-        emit Transfer(address(0), msg.sender, amount);
+        emit Transfer(address(0), tx.origin, amount);
     }
 
     function burn(address burnee, uint amount) internal {
         balanceOf[burnee] -= amount;
         totalSupply -= amount;
-        emit Transfer(msg.sender, address(0), amount);
+        emit Transfer(tx.origin, address(0), amount);
     }
 
 
