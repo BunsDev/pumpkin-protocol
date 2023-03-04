@@ -3,6 +3,9 @@ import { Button } from "@mantine/core";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { MdCreate } from "react-icons/md";
 import { IoIosCreate } from "react-icons/io";
+import { BiPieChartAlt2 } from "react-icons/bi";
+import { BiTrophy } from "react-icons/bi";
+
 import Modal from "../components/Modal";
 import TokenCountModal from "../components/TokenCountModal";
 
@@ -28,7 +31,7 @@ const ViewTokens = () => {
         {!modal && (
           <div className="new__content">
             <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
-            <h3 className="new__title">Token Name</h3>
+            <h3 className="new__title">My Index Token</h3>
             {/* <span className="new__subtitle">Accessory</span> */}
             <div className="new__prices">
               <span className="new__subtitle">
@@ -53,33 +56,7 @@ const ViewTokens = () => {
                   >
                     <GiTakeMyMoney></GiTakeMyMoney>
                   </span>
-                  Withdraw Underlying Tokens
-                </span>
-              </Button>
-
-              <Button
-                color="indigo"
-                onClick={e => {
-                  setModal(true);
-                }}
-              >
-                <span
-                  className="edit-btn--container"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-evenly",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <MdCreate></MdCreate>
-                  </span>
-                  Update Token Ratios
+                  Redeem Tokens
                 </span>
               </Button>
 
@@ -105,9 +82,69 @@ const ViewTokens = () => {
                   >
                     <IoIosCreate></IoIosCreate>
                   </span>
-                  Update Token Quantity
+                  Issue Tokens
                 </span>
               </Button>
+
+              <Button
+                color="indigo"
+                onClick={e => {
+                  setModal(true);
+                }}
+              >
+                <span
+                  className="edit-btn--container"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      color: "#fff",
+                      width: "90%",
+                    }}
+                  >
+                    <BiPieChartAlt2></BiPieChartAlt2>
+                  </span>
+                  Rebalance Tokens
+                </span>
+              </Button>
+
+              <Button
+                color="indigo"
+                onClick={e => {
+                  setModal(true);
+                }}
+              >
+                <br/>
+                <br/>
+                <span
+                  className="edit-btn--container"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      color: "#fff",
+                      width: "90%",
+                    }}
+                  >
+                    <BiTrophy></BiTrophy>
+                  </span>
+                  Claim Fee
+                </span>
+              </Button>
+
+
+                  
+
             </div>
           </div>
         )}

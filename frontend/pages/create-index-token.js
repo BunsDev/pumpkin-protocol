@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Alert, Button } from "@mantine/core";
 import { IoIosCreate } from "react-icons/io";
+const { ethers } = require("ethers");
+const PUMPKIN_ABI = "PUMPKIN_ABI";
+
 const COINGECKO_PRICE_FEED_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=aave,wrapped-fantom,dai,usd-coin,tether,binance-usd,wrapped-bitcoin,chainlink,true-usd,frax&vs_currencies=usd";
 
@@ -22,6 +25,21 @@ const CreateIndexToken = () => {
 
   const [tokenName, setTokenName] = useState("");
   const [tokenSymbol, setTokenSymbol] = useState("");
+
+  const PumpkinAddress = "0x15E7e2f9d8f6703586491dd057f12ff7b621ED12";
+  const USDCAddress = "0x73778d5569E3798360C0F557CeB549092759A029";
+
+
+  // WEB3 
+  const createTokenWeb3 = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    //const USDC = new ethers.Contract(USDCAddress, PUMPKIN_ABI, provider )
+    //const USDCWithSigner = USDC.connect(signer);
+    //await USDCWithSigner.approve(PumpkinAddress, "1000000")
+  }
+  
 
   const calculateIndexTokenPrice = () => {
     const price =
@@ -465,7 +483,9 @@ const CreateIndexToken = () => {
           <div className="approx-token-price--container">
             Approx Value in USD : <span>${approxTokenPrice.toFixed(2)}</span>
           </div>
-          <Button variant="light" color="indigo">
+          <Button variant="light" color="indigo"
+          onClick={createTokenWeb3}
+          >
             <span
               className="create-token--btn"
               style={{
@@ -486,5 +506,7 @@ const CreateIndexToken = () => {
     </>
   );
 };
+
+
 
 export default CreateIndexToken;

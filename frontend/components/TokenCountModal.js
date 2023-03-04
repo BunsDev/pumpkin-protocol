@@ -52,7 +52,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
             </fieldset>
 
             <fieldset>
-              <legend>Update Token Quantity</legend>
+              <legend>Issue new tokens</legend>
               <span
                 style={{
                   display: "flex",
@@ -76,7 +76,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
                         marginRight: "10px",
                       }}
                     ></span>
-                    Update Token Quantity
+                    Issue Tokens
                   </span>
                 </Button>
 
