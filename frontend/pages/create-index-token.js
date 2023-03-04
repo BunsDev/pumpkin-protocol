@@ -3,17 +3,18 @@ import axios from "axios";
 import { Alert, Button } from "@mantine/core";
 import { IoIosCreate } from "react-icons/io";
 import { ethers } from "ethers";
-import ERC20_ABI from "./ERC20_ABI";
-import PUMPKIN_ABI from "./PUMPKIN_ABI";
-import { useMoralis,useWeb3Contract } from "react-moralis";
-
+import ERC20_ABI from "../constants/ERC20_ABI";
+import PUMPKIN_ABI from "../constants/PUMPKIN_ABI";
+import { useMoralis, useWeb3Contract } from "react-moralis";
+import { PumpkinAddress } from "../constants/PumpkinAddress";
 
 const COINGECKO_PRICE_FEED_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=weth,aave,wrapped-fantom,dai,usd-coin,tether,binance-usd,wrapped-bitcoin,chainlink,true-usd,frax&vs_currencies=usd";
 
 const CreateIndexToken = () => {
   const { runContractFunction } = useWeb3Contract();
-  const { enableWeb3, authenticate, chainId, account, isWeb3Enabled } =useMoralis();
+  const { enableWeb3, authenticate, chainId, account, isWeb3Enabled } =
+    useMoralis();
   const [coinPriceData, setCoinPriceData] = useState({});
   const [timestamp, setTimestamp] = useState(Date.now());
   const [approxTokenPrice, setApproxTokenPrice] = useState(0);
@@ -30,60 +31,54 @@ const CreateIndexToken = () => {
 
   const [tokenName, setTokenName] = useState("");
   const [tokenSymbol, setTokenSymbol] = useState("");
-
-  const PumpkinAddress = "0x15E7e2f9d8f6703586491dd057f12ff7b621ED12";
   const USDCAddress = "0x73778d5569E3798360C0F557CeB549092759A029";
   const WETHAddress = "0x31bF40f5642BCC6d41f28cccB2ADFB735722Bb30";
   const WBTCAddress = "0x7FA0D30b30aF032bd1d8453603D7Df948021eA60";
   const WFTMAddress = "0xeF35e201aaBEFe47Ff3e01c87ef6D35878588B0C";
   const AAVEAddress = "0x415cE4e20bD34F9620a926db1B6a9ca08424FCdb";
 
-
- const checkTokenRatio=()=>{
+  const checkTokenRatio = () => {
     const sum = +usdc + +weth + +wbtc + +wftm + +aave;
     console.log(sum);
-    if(sum != 100)
-    {
-      window.alert("Token ratios should total upto 100 %", "Ratio is:" ,sum)
+    if (sum != 100) {
+      window.alert("Token ratios should total upto 100 %", "Ratio is:", sum);
       return false;
     }
     return true;
-  }
+  };
 
-  // WEB3 
+  // WEB3
   const createTokenWeb3 = async () => {
-    await enableWeb3()
-    await authenticate()
-    const utilityTokenAddress=[];
-    const utilityTokenRatios=[];
-    if(!checkTokenRatio()) return;
-    if(weth > 0)
-    {
-      utilityTokenAddress.push(WETHAddress)
-      utilityTokenRatios.push(weth)
+    await enableWeb3();
+    await authenticate();
+    const utilityTokenAddress = [];
+    const utilityTokenRatios = [];
+    if (!checkTokenRatio()) return;
+    if (weth > 0) {
+      utilityTokenAddress.push(WETHAddress);
+      utilityTokenRatios.push(weth);
     }
-    if(usdc > 0){
-      utilityTokenAddress.push(USDCAddress)
-      utilityTokenRatios.push(usdc)
+    if (usdc > 0) {
+      utilityTokenAddress.push(USDCAddress);
+      utilityTokenRatios.push(usdc);
     }
-    if(aave > 0){
-      utilityTokenAddress.push(AAVEAddress)
-      utilityTokenRatios.push(aave)
+    if (aave > 0) {
+      utilityTokenAddress.push(AAVEAddress);
+      utilityTokenRatios.push(aave);
     }
-    if(wbtc > 0){
-      utilityTokenAddress.push(WBTCAddress)
-      utilityTokenRatios.push(wbtc)
+    if (wbtc > 0) {
+      utilityTokenAddress.push(WBTCAddress);
+      utilityTokenRatios.push(wbtc);
     }
-    if(wftm > 0){
-      utilityTokenAddress.push(WFTMAddress)
-      utilityTokenRatios.push(wftm)
+    if (wftm > 0) {
+      utilityTokenAddress.push(WFTMAddress);
+      utilityTokenRatios.push(wftm);
     }
-    if(tokenName.length == 0 || tokenSymbol.length == 0)
-    {
-      window.alert("Token Name and Symbol cannot be empty")
+    if (tokenName.length == 0 || tokenSymbol.length == 0) {
+      window.alert("Token Name and Symbol cannot be empty");
       return;
     }
-   /*
+    /*
     try{
       
     const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -119,32 +114,26 @@ const CreateIndexToken = () => {
       window.alert(err)
     }
     */
-  {
-
-    
-    runContractFunction({
-      params: {
-        abi: PUMPKIN_ABI,
-        contractAddress: PumpkinAddress, // specify the networkId
-        functionName: "createToken",
+    {
+      runContractFunction({
         params: {
-          _tokens:utilityTokenAddress,
-          _percentages:utilityTokenRatios,
-          _name:tokenName,
-          _symbol:tokenSymbol
+          abi: PUMPKIN_ABI,
+          contractAddress: PumpkinAddress, // specify the networkId
+          functionName: "createToken",
+          params: {
+            _tokens: utilityTokenAddress,
+            _percentages: utilityTokenRatios,
+            _name: tokenName,
+            _symbol: tokenSymbol,
+          },
         },
-      },
-      onError: error => console.log(error),
-      onSuccess: data => {
-        console.log(data);
-      },
-    });
-
-    
+        onError: error => console.log(error),
+        onSuccess: data => {
+          console.log(data);
+        },
+      });
     }
- 
-  }
-  
+  };
 
   const calculateIndexTokenPrice = () => {
     const price =
@@ -155,9 +144,9 @@ const CreateIndexToken = () => {
       (wbtc / 100) * parseFloat(coinPriceData[tokenSymbolAddress.wbtc.id].usd) +
       (weth / 100) * parseFloat(coinPriceData[tokenSymbolAddress.weth.id].usd) +
       (wftm / 100) * parseFloat(coinPriceData[tokenSymbolAddress.wftm.id].usd) +
-      (aave / 100) * parseFloat(coinPriceData[tokenSymbolAddress.aave.id].usd) 
-      //(tusd / 100) * parseFloat(coinPriceData[tokenSymbolAddress.tusd.id].usd) +
-      //(frax / 100) * parseFloat(coinPriceData[tokenSymbolAddress.frax.id].usd);
+      (aave / 100) * parseFloat(coinPriceData[tokenSymbolAddress.aave.id].usd);
+    //(tusd / 100) * parseFloat(coinPriceData[tokenSymbolAddress.tusd.id].usd) +
+    //(frax / 100) * parseFloat(coinPriceData[tokenSymbolAddress.frax.id].usd);
 
     setApproxTokenPrice(price);
   };
@@ -320,7 +309,7 @@ const CreateIndexToken = () => {
         const data = res.data;
         setCoinPriceData(data);
       });
-      console.log(coinPriceData);
+      //   console.log(coinPriceData);
     } catch (err) {
       alert(err.message);
     }
@@ -543,7 +532,7 @@ const CreateIndexToken = () => {
             </div>
           </div>
           <br />
-          
+
           {/* TUSD */}
           {/*
           <div className="underlying-token">
@@ -596,9 +585,7 @@ const CreateIndexToken = () => {
           <div className="approx-token-price--container">
             Approx Value in USD : <span>${approxTokenPrice.toFixed(2)}</span>
           </div>
-          <Button variant="light" color="indigo"
-          onClick={createTokenWeb3}
-          >
+          <Button variant="light" color="indigo" onClick={createTokenWeb3}>
             <span
               className="create-token--btn"
               style={{
@@ -619,7 +606,5 @@ const CreateIndexToken = () => {
     </>
   );
 };
-
-
 
 export default CreateIndexToken;
