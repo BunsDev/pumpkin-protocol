@@ -1,1 +1,3 @@
-export const PumpkinAddress = "0x15E7e2f9d8f6703586491dd057f12ff7b621ED12";
+export const PumpkinAddress = "0xCA7CD002B016F1DF5710712020D5C76cfcd25cEE";
+
+// OLD ADDRESS : 0x15E7e2f9d8f6703586491dd057f12ff7b621ED12
