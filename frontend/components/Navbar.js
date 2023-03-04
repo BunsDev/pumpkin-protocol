@@ -8,18 +8,15 @@ const Navbar = () => {
     <header className="header" id="header">
       <nav className="nav container">
         <Link href="/" className="nav__logo">
-          <p>
-          Pumpkin Index
-          </p>
+          <p>Pumpkin Index</p>
         </Link>
         <div className="nav__menu" id="nav-menu">
           <ul className="nav__list">
-
-            <li className="nav__item">
+            {/* <li className="nav__item">
               <Link href="/view-tokens" className="nav__link">
                 Explore
               </Link>
-            </li>
+            </li> */}
             <li className="nav__item">
               <Link href="/about" className="nav__link">
                 About
