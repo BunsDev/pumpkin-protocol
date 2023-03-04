@@ -3,12 +3,17 @@ import axios from "axios";
 import { Alert, Button } from "@mantine/core";
 import { IoIosCreate } from "react-icons/io";
 import { ethers } from "ethers";
+import ERC20_ABI from "./ERC20_ABI";
 import PUMPKIN_ABI from "./PUMPKIN_ABI";
+import { useMoralis,useWeb3Contract } from "react-moralis";
+
 
 const COINGECKO_PRICE_FEED_URL =
-  "https://api.coingecko.com/api/v3/simple/price?ids=aave,wrapped-fantom,dai,usd-coin,tether,binance-usd,wrapped-bitcoin,chainlink,true-usd,frax&vs_currencies=usd";
+  "https://api.coingecko.com/api/v3/simple/price?ids=weth,aave,wrapped-fantom,dai,usd-coin,tether,binance-usd,wrapped-bitcoin,chainlink,true-usd,frax&vs_currencies=usd";
 
 const CreateIndexToken = () => {
+  const { runContractFunction } = useWeb3Contract();
+  const { enableWeb3, authenticate, chainId, account, isWeb3Enabled } =useMoralis();
   const [coinPriceData, setCoinPriceData] = useState({});
   const [timestamp, setTimestamp] = useState(Date.now());
   const [approxTokenPrice, setApproxTokenPrice] = useState(0);
@@ -17,7 +22,7 @@ const CreateIndexToken = () => {
   const [usdt, setUsdt] = useState(0);
   const [busd, setBusd] = useState(0);
   const [wbtc, setWbtc] = useState(0);
-  const [link, setLink] = useState(0);
+  const [weth, setWeth] = useState(0);
   const [wftm, setWftm] = useState(0);
   const [aave, setAave] = useState(0);
   const [tusd, setTusd] = useState(0);
@@ -28,31 +33,131 @@ const CreateIndexToken = () => {
 
   const PumpkinAddress = "0x15E7e2f9d8f6703586491dd057f12ff7b621ED12";
   const USDCAddress = "0x73778d5569E3798360C0F557CeB549092759A029";
+  const WETHAddress = "0x31bF40f5642BCC6d41f28cccB2ADFB735722Bb30";
+  const WBTCAddress = "0x7FA0D30b30aF032bd1d8453603D7Df948021eA60";
+  const WFTMAddress = "0xeF35e201aaBEFe47Ff3e01c87ef6D35878588B0C";
+  const AAVEAddress = "0x415cE4e20bD34F9620a926db1B6a9ca08424FCdb";
 
+
+ const checkTokenRatio=()=>{
+    const sum = +usdc + +weth + +wbtc + +wftm + +aave;
+    console.log(sum);
+    if(sum != 100)
+    {
+      window.alert("Token ratios should total upto 100 %", "Ratio is:" ,sum)
+      return false;
+    }
+    return true;
+  }
 
   // WEB3 
   const createTokenWeb3 = async () => {
+    await enableWeb3()
+    await authenticate()
+    const utilityTokenAddress=[];
+    const utilityTokenRatios=[];
+    if(!checkTokenRatio()) return;
+    if(weth > 0)
+    {
+      utilityTokenAddress.push(WETHAddress)
+      utilityTokenRatios.push(weth)
+    }
+    if(usdc > 0){
+      utilityTokenAddress.push(USDCAddress)
+      utilityTokenRatios.push(usdc)
+    }
+    if(aave > 0){
+      utilityTokenAddress.push(AAVEAddress)
+      utilityTokenRatios.push(aave)
+    }
+    if(wbtc > 0){
+      utilityTokenAddress.push(WBTCAddress)
+      utilityTokenRatios.push(wbtc)
+    }
+    if(wftm > 0){
+      utilityTokenAddress.push(WFTMAddress)
+      utilityTokenRatios.push(wftm)
+    }
+    if(tokenName.length == 0 || tokenSymbol.length == 0)
+    {
+      window.alert("Token Name and Symbol cannot be empty")
+      return;
+    }
+   /*
+    try{
+      
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
-    const USDC = new ethers.Contract(USDCAddress, PUMPKIN_ABI, provider )
+    if(usdc > 0){
+    const USDC = new ethers.Contract(USDCAddress, ERC20_ABI, provider )
     const USDCWithSigner = USDC.connect(signer);
-    await USDCWithSigner.approve(PumpkinAddress, "1000000")
+    await USDCWithSigner.approve(PumpkinAddress, "1000000");
+    }
+    if(weth > 0) {
+    const WETH = new ethers.Contract(WETHAddress, ERC20_ABI, provider )
+    const WETHWithSigner = WETH.connect(signer);
+    await WETHWithSigner.approve(PumpkinAddress, "1000000");
+    }
+    if (wbtc > 0) {
+    const WBTC = new ethers.Contract(WBTCAddress, ERC20_ABI, provider )
+    const WBTCWithSigner = WBTC.connect(signer);
+    await WBTCWithSigner.approve(PumpkinAddress, "1000000");   
+    }
+    if (wftm > 0){
+    const WFTM = new ethers.Contract(WFTMAddress, ERC20_ABI, provider )
+    const WFTMWithSigner = WFTM.connect(signer);
+    await WFTMWithSigner.approve(PumpkinAddress, "1000000");
+    }
+    if (aave > 0){
+    const AAVE = new ethers.Contract(AAVEAddress, ERC20_ABI, provider )
+    const AAVEWithSigner = AAVE.connect(signer);
+    await AAVEWithSigner.approve(PumpkinAddress, "1000000");
+    }
+  }
+    catch (err) {
+      window.alert(err)
+    }
+    */
+  {
+
+    
+    runContractFunction({
+      params: {
+        abi: PUMPKIN_ABI,
+        contractAddress: PumpkinAddress, // specify the networkId
+        functionName: "createToken",
+        params: {
+          _tokens:utilityTokenAddress,
+          _percentages:utilityTokenRatios,
+          _name:tokenName,
+          _symbol:tokenSymbol
+        },
+      },
+      onError: error => console.log(error),
+      onSuccess: data => {
+        console.log(data);
+      },
+    });
+
+    
+    }
+ 
   }
   
 
   const calculateIndexTokenPrice = () => {
     const price =
-      (dai / 100) * parseFloat(coinPriceData[tokenSymbolAddress.dai.id].usd) +
+      /*(dai / 100) * parseFloat(coinPriceData[tokenSymbolAddress.dai.id].usd) +*/
       (usdc / 100) * parseFloat(coinPriceData[tokenSymbolAddress.usdc.id].usd) +
-      (usdt / 100) * parseFloat(coinPriceData[tokenSymbolAddress.usdt.id].usd) +
-      (busd / 100) * parseFloat(coinPriceData[tokenSymbolAddress.busd.id].usd) +
+      //(usdt / 100) * parseFloat(coinPriceData[tokenSymbolAddress.usdt.id].usd) +
+      //(busd / 100) * parseFloat(coinPriceData[tokenSymbolAddress.busd.id].usd) +
       (wbtc / 100) * parseFloat(coinPriceData[tokenSymbolAddress.wbtc.id].usd) +
-      (link / 100) * parseFloat(coinPriceData[tokenSymbolAddress.link.id].usd) +
+      (weth / 100) * parseFloat(coinPriceData[tokenSymbolAddress.weth.id].usd) +
       (wftm / 100) * parseFloat(coinPriceData[tokenSymbolAddress.wftm.id].usd) +
-      (aave / 100) * parseFloat(coinPriceData[tokenSymbolAddress.aave.id].usd) +
-      (tusd / 100) * parseFloat(coinPriceData[tokenSymbolAddress.tusd.id].usd) +
-      (frax / 100) * parseFloat(coinPriceData[tokenSymbolAddress.frax.id].usd);
+      (aave / 100) * parseFloat(coinPriceData[tokenSymbolAddress.aave.id].usd) 
+      //(tusd / 100) * parseFloat(coinPriceData[tokenSymbolAddress.tusd.id].usd) +
+      //(frax / 100) * parseFloat(coinPriceData[tokenSymbolAddress.frax.id].usd);
 
     setApproxTokenPrice(price);
   };
@@ -77,9 +182,9 @@ const CreateIndexToken = () => {
       symbol: "wbtc",
       id: "wrapped-bitcoin",
     },
-    link: {
-      symbol: "link",
-      id: "chainlink",
+    weth: {
+      symbol: "weth",
+      id: "weth",
     },
     wftm: {
       symbol: "wftm",
@@ -101,34 +206,34 @@ const CreateIndexToken = () => {
 
   function updateTokenState(element) {
     if (element.id == "dai") {
-      setDai(element.value);
+      setDai(+element.value);
     }
     if (element.id == "usdc") {
-      setUsdc(element.value);
+      setUsdc(+element.value);
     }
     if (element.id == "usdt") {
-      setUsdt(element.value);
+      setUsdt(+element.value);
     }
     if (element.id == "busd") {
-      setBusd(element.value);
+      setBusd(+element.value);
     }
     if (element.id == "wbtc") {
-      setWbtc(element.value);
+      setWbtc(+element.value);
     }
-    if (element.id == "chain-link") {
-      setLink(element.value);
+    if (element.id == "weth") {
+      setWeth(+element.value);
     }
     if (element.id == "wftm") {
-      setWftm(element.value);
+      setWftm(+element.value);
     }
     if (element.id == "aave") {
-      setAave(element.value);
+      setAave(+element.value);
     }
     if (element.id == "tusd") {
-      setTusd(element.value);
+      setTusd(+element.value);
     }
     if (element.id == "frax") {
-      setFrax(element.value);
+      setFrax(+element.value);
     }
   }
   async function getPriceFeedData() {
@@ -267,7 +372,7 @@ const CreateIndexToken = () => {
         <fieldset>
           <legend>Index Token Percentage</legend>
           {/* DAI */}
-          <div className="underlying-token">
+          {/*<div className="underlying-token">
             <div className="token-label--container">
               <label className="token-label">DAI</label>
             </div>
@@ -287,6 +392,7 @@ const CreateIndexToken = () => {
             </div>
           </div>
           <br />
+              */}
           {/* USDC */}
           <div className="underlying-token">
             <div className="token-label--container">
@@ -309,7 +415,7 @@ const CreateIndexToken = () => {
           </div>
           <br />
           {/* USDT */}
-          <div className="underlying-token">
+          {/*<div className="underlying-token">
             <div className="token-label--container">
               <label className="token-label">USDT</label>
             </div>
@@ -329,7 +435,9 @@ const CreateIndexToken = () => {
             </div>
           </div>
           <br />
+            */}
           {/* BUSD */}
+          {/*
           <div className="underlying-token">
             <div className="token-label--container">
               <label className="token-label">BUSD</label>
@@ -350,6 +458,7 @@ const CreateIndexToken = () => {
             </div>
           </div>
           <br />
+          */}
           {/* WBTC */}
           <div className="underlying-token">
             <div className="token-label--container">
@@ -371,10 +480,10 @@ const CreateIndexToken = () => {
             </div>
           </div>
           <br />
-          {/* LINK */}
+          {/* WETH */}
           <div className="underlying-token">
             <div className="token-label--container">
-              <label className="token-label">LINK</label>
+              <label className="token-label">WETH</label>
             </div>
             <div className="token-slider">
               <input
@@ -383,12 +492,12 @@ const CreateIndexToken = () => {
                 className="depend"
                 min="0"
                 max="100"
-                value={link}
+                value={weth}
                 step="1"
                 onChange={handleChange}
-                id="chain-link"
+                id="weth"
               />
-              <label id="chain-link_percentage">{link}</label>%
+              <label id="weth_percentage">{weth}</label>%
             </div>
           </div>
           <br />
@@ -434,7 +543,9 @@ const CreateIndexToken = () => {
             </div>
           </div>
           <br />
+          
           {/* TUSD */}
+          {/*
           <div className="underlying-token">
             <div className="token-label--container">
               <label className="token-label">TUSD</label>
@@ -455,7 +566,9 @@ const CreateIndexToken = () => {
             </div>
           </div>
           <br />
+        */}
           {/* FRAX */}
+          {/*
           <div className="underlying-token">
             <div className="token-label--container">
               <label className="token-label">FRAX</label>
@@ -475,7 +588,7 @@ const CreateIndexToken = () => {
               <label id="frax_percentage">{frax}</label>%
             </div>
           </div>
-
+        */}
           <br />
         </fieldset>
         <fieldset>
