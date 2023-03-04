@@ -46,7 +46,16 @@ const CreateIndexToken = () => {
     }
     return true;
   };
-
+  const resetValues = () => {
+    setCoinPriceData(0);
+    setUsdc(0);
+    setWbtc(0);
+    setWeth(0);
+    setWftm(0);
+    setAave(0);
+    setTokenName("");
+    setTokenSymbol("");
+  };
   // WEB3
   const createTokenWeb3 = async () => {
     await enableWeb3();
@@ -130,6 +139,7 @@ const CreateIndexToken = () => {
         onError: error => console.log(error),
         onSuccess: data => {
           console.log(data);
+          resetValues();
         },
       });
     }

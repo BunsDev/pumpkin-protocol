@@ -9,6 +9,7 @@ import Head from "next/head";
 import Modal from "../components/Modal";
 import TokenCountModal from "../components/TokenCountModal";
 import PUMPKIN_ABI from "../constants/PUMPKIN_ABI";
+import ERC_ABI from "../constants/ERC20_ABI.json";
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import { PumpkinAddress } from "../constants/PumpkinAddress";
 
@@ -44,6 +45,21 @@ const ViewTokens = () => {
         onError: error => console.log(error),
         onSuccess: data => {
           console.log(data);
+          setTokens(data);
+        },
+      });
+
+      runContractFunction({
+        params: {
+          abi: PUMPKIN_ABI,
+          contractAddress: ERC_ABI,
+          functionName: "name",
+          params: {},
+        },
+        //
+        onError: error => console.log(error),
+        onSuccess: data => {
+          console.log(data);
         },
       });
     }
@@ -74,123 +90,126 @@ const ViewTokens = () => {
       {/* TODO create a update token quantity modal */}
       <div className="view-token--container">
         {/* {account} */}
-        {!modal && (
-          <div className="new__content">
-            <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
-            <h3 className="new__title">My Index Token</h3>
-            {/* <span className="new__subtitle">Accessory</span> */}
 
-            <div className="new__prices">
-              <span className="new__subtitle">
-                Approx value in USD ~ $14.99
-              </span>
-            </div>
-            <br />
-            <div className="view-token--buttons">
-              <Button variant="light" color="indigo">
-                <span
-                  className="edit-btn--container"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-evenly",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "20px",
-                    }}
-                  >
-                    <GiTakeMyMoney></GiTakeMyMoney>
+        {tokens.map(
+          (item, index) =>
+            !modal && (
+              <div key={index} className="new__content">
+                <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
+                <h3 className="new__title">My Index Token</h3>
+                {/* <span className="new__subtitle">Accessory</span> */}
+
+                <div className="new__prices">
+                  <span className="new__subtitle">
+                    Approx value in USD ~ $14.99
                   </span>
-                  Redeem Tokens
-                </span>
-              </Button>
-
-              <Button
-                color="green"
-                onClick={e => {
-                  setTokenCountModal(true);
-                }}
-              >
-                <span
-                  className="edit-btn--container"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-evenly",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "20px",
-                      color: "#fff",
-                    }}
-                  >
-                    <IoIosCreate></IoIosCreate>
-                  </span>
-                  Issue Tokens
-                </span>
-              </Button>
-
-              <Button
-                color="indigo"
-                onClick={e => {
-                  setModal(true);
-                }}
-              >
-                <span
-                  className="edit-btn--container"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-evenly",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "20px",
-                      color: "#fff",
-                      width: "90%",
-                    }}
-                  >
-                    <BiPieChartAlt2></BiPieChartAlt2>
-                  </span>
-                  Rebalance Tokens
-                </span>
-              </Button>
-
-              <Button
-                color="indigo"
-                onClick={e => {
-                  setModal(true);
-                }}
-              >
+                </div>
                 <br />
-                <br />
-                <span
-                  className="edit-btn--container"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-evenly",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "20px",
-                      color: "#fff",
-                      width: "90%",
+                <div className="view-token--buttons">
+                  <Button variant="light" color="indigo">
+                    <span
+                      className="edit-btn--container"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-evenly",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: "20px",
+                        }}
+                      >
+                        <GiTakeMyMoney></GiTakeMyMoney>
+                      </span>
+                      Redeem Tokens
+                    </span>
+                  </Button>
+
+                  <Button
+                    color="green"
+                    onClick={e => {
+                      setTokenCountModal(true);
                     }}
                   >
-                    <BiTrophy></BiTrophy>
-                  </span>
-                  Claim Fee
-                </span>
-              </Button>
-            </div>
-            {account}
-          </div>
+                    <span
+                      className="edit-btn--container"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-evenly",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: "20px",
+                          color: "#fff",
+                        }}
+                      >
+                        <IoIosCreate></IoIosCreate>
+                      </span>
+                      Issue Tokens
+                    </span>
+                  </Button>
+
+                  <Button
+                    color="indigo"
+                    onClick={e => {
+                      setModal(true);
+                    }}
+                  >
+                    <span
+                      className="edit-btn--container"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-evenly",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: "20px",
+                          color: "#fff",
+                          width: "90%",
+                        }}
+                      >
+                        <BiPieChartAlt2></BiPieChartAlt2>
+                      </span>
+                      Rebalance Tokens
+                    </span>
+                  </Button>
+
+                  <Button
+                    color="indigo"
+                    onClick={e => {
+                      setModal(true);
+                    }}
+                  >
+                    <br />
+                    <br />
+                    <span
+                      className="edit-btn--container"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-evenly",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: "20px",
+                          color: "#fff",
+                          width: "90%",
+                        }}
+                      >
+                        <BiTrophy></BiTrophy>
+                      </span>
+                      Claim Fee
+                    </span>
+                  </Button>
+                </div>
+              </div>
+            )
         )}
       </div>
     </>
