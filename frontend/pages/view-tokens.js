@@ -29,7 +29,14 @@ const ViewTokens = () => {
   const [modal, setModal] = useState(false);
   const [tokenCountModal, setTokenCountModal] = useState(false);
   const [tokens, setTokens] = useState([]);
-
+  const successNotification = msg => {
+    dispatch({
+      type: "success",
+      message: `${msg} Successfully`,
+      title: `${msg}`,
+      position: "bottomR",
+    });
+  };
   const getUserIndexTokens = async function () {
     await enableWeb3();
     // console.log(account);
@@ -48,12 +55,13 @@ const ViewTokens = () => {
         onSuccess: data => {
           console.log(data);
           setTokens(data);
-          dispatch({
-            type: "success",
-            message: `Tokens Fetched`,
-            title: "Tokens Fetched Successfully",
-            position: "bottomR",
-          });
+          //   dispatch({
+          //     type: "success",
+          //     message: `Tokens Fetched`,
+          //     title: "Tokens Fetched Successfully",
+          //     position: "bottomR",
+          //   });
+          successNotification(`Tokens Fetched`);
         },
       });
 
@@ -113,9 +121,10 @@ const ViewTokens = () => {
                     title="Copy To Clipboard"
                     onClick={e => {
                       navigator.clipboard.writeText(e.target.innerHTML);
+                      successNotification(`Copied To Clipboard`);
                     }}
                   >
-                    {item.toString()}
+                    {item}
                   </span>
                 </div>
                 <br />

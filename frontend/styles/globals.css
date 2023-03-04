@@ -1140,6 +1140,9 @@ fieldset .approx-token-price--container {
   overflow-wrap: anywhere;
   cursor: pointer;
 }
+.index-token--address:hover {
+  text-decoration: underline;
+}
 hr {
   border: 0.25px solid #fff;
 }
