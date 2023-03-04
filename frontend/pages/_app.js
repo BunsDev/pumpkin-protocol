@@ -55,8 +55,8 @@ function MyApp({ Component, pageProps }) {
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains}>
           <MoralisProvider initializeOnMount={false}>
+            <Navbar></Navbar>
             <NotificationProvider>
-              <Navbar></Navbar>
               <Component {...pageProps} />
             </NotificationProvider>
           </MoralisProvider>
