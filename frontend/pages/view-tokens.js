@@ -55,27 +55,8 @@ const ViewTokens = () => {
         onSuccess: data => {
           console.log(data);
           setTokens(data);
-          //   dispatch({
-          //     type: "success",
-          //     message: `Tokens Fetched`,
-          //     title: "Tokens Fetched Successfully",
-          //     position: "bottomR",
-          //   });
-          successNotification(`Tokens Fetched`);
-        },
-      });
 
-      runContractFunction({
-        params: {
-          abi: PUMPKIN_ABI,
-          contractAddress: ERC_ABI,
-          functionName: "name",
-          params: {},
-        },
-        //
-        onError: error => console.log(error),
-        onSuccess: data => {
-          console.log(data);
+          successNotification(`Tokens Fetched`);
         },
       });
     }
