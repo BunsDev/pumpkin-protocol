@@ -7,15 +7,16 @@ const Navbar = () => {
   return (
     <header className="header" id="header">
       <nav className="nav container">
-        <a href="#" className="nav__logo">
+        <a href="/" className="nav__logo">
           {" "}
-          Project Name{" "}
+          Pumpkin Index{" "}
         </a>
         <div className="nav__menu" id="nav-menu">
           <ul className="nav__list">
+
             <li className="nav__item">
-              <Link href="/" className="nav__link active-link">
-                Home
+              <Link href="/view-tokens" className="nav__link">
+                Explore
               </Link>
             </li>
             <li className="nav__item">
@@ -25,7 +26,7 @@ const Navbar = () => {
             </li>
             <li className="nav__item">
               <Link href="/view-tokens" className="nav__link">
-                View Tokens
+                My Tokens
               </Link>
             </li>
             {/* <a href="#" className="button button--ghost">
