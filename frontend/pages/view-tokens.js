@@ -27,7 +27,7 @@ const ViewTokens = () => {
     Moralis,
   } = useMoralis();
   const [modal, setModal] = useState(false);
-  const [tokenCountModal, setTokenCountModal] = useState(false);
+  const [tokenCountModal, setTokenCountModal] = useState(true); // change this
   const [tokens, setTokens] = useState([]);
   const [tokenNames, setTokenNames] = useState([]);
   const [tokenSymbols, setTokenSymbols] = useState([]);
@@ -253,7 +253,7 @@ const ViewTokens = () => {
               </div>
             )
         )}
-        {tokenName}
+
       </div>
     </>
   );
