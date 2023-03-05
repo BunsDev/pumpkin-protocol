@@ -253,7 +253,6 @@ const ViewTokens = () => {
               </div>
             )
         )}
-
       </div>
     </>
   );
