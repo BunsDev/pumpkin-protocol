@@ -8,11 +8,13 @@ import PUMPKIN_ABI from "../constants/PUMPKIN_ABI";
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import { PumpkinAddress } from "../constants/PumpkinAddress";
 import { useNotification } from "web3uikit";
+import {useRouter} from 'next/router'
 
 const COINGECKO_PRICE_FEED_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=weth,aave,wrapped-fantom,dai,usd-coin,tether,binance-usd,wrapped-bitcoin,chainlink,true-usd,frax&vs_currencies=usd";
 
 const CreateIndexToken = () => {
+  const router=useRouter()
   const dispatch=useNotification()
   const { runContractFunction } = useWeb3Contract();
   const { enableWeb3, authenticate, chainId, account, isWeb3Enabled } =
@@ -58,16 +60,7 @@ const CreateIndexToken = () => {
     }
     return true;
   };
-  const resetValues = () => {
-    setCoinPriceData(0);
-    setUsdc(0);
-    setWbtc(0);
-    setWeth(0);
-    setWftm(0);
-    setAave(0);
-    setTokenName("");
-    setTokenSymbol("");
-  };
+
   // WEB3
   const createTokenWeb3 = async () => {
     await enableWeb3();
@@ -118,7 +111,7 @@ const CreateIndexToken = () => {
     if (wbtc > 0) {
     const WBTC = new ethers.Contract(WBTCAddress, ERC20_ABI, provider )
     const WBTCWithSigner = WBTC.connect(signer);
-    await WBTCWithSigner.approve(PumpkinAddress, "1000000");   
+    await WBTCWithSigner.approve(PumpkinAddress, "1000000");  //  we pass string in here the onewe just converted
     }
     if (wftm > 0){
     const WFTM = new ethers.Contract(WFTMAddress, ERC20_ABI, provider )
@@ -150,9 +143,9 @@ const CreateIndexToken = () => {
         },
         onError: error => console.log(error),
         onSuccess: data => {
-          console.log(data);
-          resetValues();
+          console.log(data)
           successNotification(`Index Token Created`)
+          router.push("/view-tokens")
 
         },
       });
