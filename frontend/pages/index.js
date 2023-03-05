@@ -18,7 +18,9 @@ export default function Home() {
                     />
                     <div className="home__indicator"></div>
                     <div className="home__details-img">
-                      <h4 className="home__details-title">Copy popular investment strategies</h4>
+                      <h4 className="home__details-title">
+                        Copy popular investment strategies
+                      </h4>
                       <span className="home__details-subtitle">
                         or let others follow in your footsteps
                       </span>
@@ -27,12 +29,14 @@ export default function Home() {
                   <div className="home__data">
                     <h3 className="home__subtitle"></h3>
                     <h1 className="home__title">
-                    Cryptocurrencies unite, <br/>
-                    create a spooky <br/>
-                    index in sight!{" "}
+                      Cryptocurrencies unite, <br />
+                      create a spooky <br />
+                      index in sight!{" "}
                     </h1>
                     <p className="home__description">
-                    Create your perfect portfolio with ease - customize and rebalance your index token with just a few clicks. Take control of your investments like never before. {" "}
+                      Create your perfect portfolio with ease - customize and
+                      rebalance your index token with just a few clicks. Take
+                      control of your investments like never before.{" "}
                     </p>
                     <div className="home__buttons">
                       <Link href="/create-index-token">
@@ -126,46 +130,47 @@ export default function Home() {
         </section>
 
         {/* Section Category */}
-        { <section className="section category">
-          <h1 className="section__title">
-            Popular Indexes by Sector{" "}
-          </h1>
-          <div className="category__container container grid">
-            <div className="category__data">
-              <img
-                src="https://assets.codepen.io/7773162/category1-img.png"
-                alt=""
-                className="category__img"
-              />
-              <h3 className="category__title">Metaverse Index</h3>
-              <p className="category__description">
-                Composition: APE, ICP, STX, MANA, THETA, AXS, SAND
-              </p>
+        {
+          <section className="section category">
+            <h1 className="section__title">Popular Indexes by Sector </h1>
+            <div className="category__container container grid">
+              <div className="category__data">
+                <img
+                  src="https://assets.codepen.io/7773162/category1-img.png"
+                  alt=""
+                  className="category__img"
+                />
+                <h3 className="category__title">Metaverse Index</h3>
+                <p className="category__description">
+                  Composition: APE, ICP, STX, MANA, THETA, AXS, SAND
+                </p>
+              </div>
+              <div className="category__data">
+                <img
+                  src="https://assets.codepen.io/7773162/category2-img.png"
+                  alt=""
+                  className="category__img"
+                />
+                <h3 className="category__title">DeFi Pulse Index</h3>
+                <p className="category__description">
+                  Composition: UNI, LINK, MKR, FXS, SNX, CAKE, CRV, CVX, DYDX,
+                  YFI, COMP
+                </p>
+              </div>
+              <div className="category__data">
+                <img
+                  src="https://assets.codepen.io/7773162/category3-img.png"
+                  alt=""
+                  className="category__img"
+                />
+                <h3 className="category__title">Liquid Staking Index</h3>
+                <p className="category__description">
+                  STETH, RETH, FRXETH, MSOL, SAVAX, AKRETH
+                </p>
+              </div>
             </div>
-            <div className="category__data">
-              <img
-                src="https://assets.codepen.io/7773162/category2-img.png"
-                alt=""
-                className="category__img"
-              />
-              <h3 className="category__title">DeFi Pulse Index</h3>
-              <p className="category__description">
-                Composition: UNI, LINK, MKR, FXS, SNX, CAKE, CRV, CVX, DYDX, YFI, COMP
-              </p>
-            </div>
-            <div className="category__data">
-              <img
-                src="https://assets.codepen.io/7773162/category3-img.png"
-                alt=""
-                className="category__img"
-              />
-              <h3 className="category__title">Liquid Staking Index</h3>
-              <p className="category__description">
-                STETH, RETH, FRXETH, MSOL, SAVAX, AKRETH
-              </p>
-            </div>
-          </div>
-        </section> }
+          </section>
+        }
 
         <section className="section about" id="about">
           <div className="about__container container grid">
@@ -173,12 +178,17 @@ export default function Home() {
               <h2 className="section__title about__title">
                 Integrated with Spookyswap
               </h2>
-             
+
               <p className="about__description">
-              Our platform seamlessly integrates with SpookySwap, a leading decentralized exchange for trading cryptocurrencies. With SpookySwap's secure and efficient trading infrastructure, you can easily buy and sell the underlying tokens that compose your custom index, and rebalance your portfolio whenever you want.{" "}
+                Our platform seamlessly integrates with SpookySwap, a leading
+                decentralized exchange for trading cryptocurrencies. With
+                SpookySwap&apos;s secure and efficient trading infrastructure,
+                you can easily buy and sell the underlying tokens that compose
+                your custom index, and rebalance your portfolio whenever you
+                want.{" "}
               </p>
 
-            {/*}  <Link href="/create-index-token">
+              {/*}  <Link href="/create-index-token">
                 <Button color="dark" radius="md" size="lg">
                   Buy on SpookySwap
                 </Button>
@@ -189,7 +199,6 @@ export default function Home() {
               //   src="https://assets.codepen.io/7773162/about-img.png"
               src="https://1999239926-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-MXi8tZ-Fm6oya_e72FM-887967055%2Fuploads%2FCdq58vMyUSRRlBvn0nkS%2FMark%20-%20Colored.svg?alt=media&token=c7f79d77-1a47-4383-a96e-206df81033e9"
               alt=""
-              
             />
           </div>
         </section>
