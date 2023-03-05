@@ -29,6 +29,10 @@ const ViewTokens = () => {
   const [modal, setModal] = useState(false);
   const [tokenCountModal, setTokenCountModal] = useState(false);
   const [tokens, setTokens] = useState([]);
+
+  const [tokenName, setTokenName]=useState([])
+  const [tokenSymbol,setTokenSymbol]=useState([])
+
   const successNotification = msg => {
     dispatch({
       type: "success",
@@ -57,6 +61,28 @@ const ViewTokens = () => {
           setTokens(data);
 
           successNotification(`Tokens Fetched`);
+
+          data.map(item=>{
+            console.log("inside the get name function");
+            runContractFunction({
+              params: {
+                abi: PUMPKIN_ABI,
+                contractAddress: PumpkinAddress,
+                functionName: "getName",
+                params: {
+                  _indexAddress: item,
+                },
+              },
+              //
+              onError: error => console.log(error),
+              onSuccess: data => {
+                console.log(data);
+                setTokenName(tokenName=>[...tokenName, data]);
+              },
+            });
+
+          })
+
         },
       });
     }
@@ -215,6 +241,7 @@ const ViewTokens = () => {
               </div>
             )
         )}
+        {tokenName}
       </div>
     </>
   );

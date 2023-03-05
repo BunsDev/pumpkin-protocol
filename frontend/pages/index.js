@@ -12,7 +12,7 @@ export default function Home() {
                 <div className="home__content grid">
                   <div className="home__group">
                     <img
-                      src="https://assets.codepen.io/7773162/home2-img.png"
+                      src="https://assets.codepen.io/7773162/about-img.png"
                       alt=""
                       className="home__img"
                     />
@@ -27,10 +27,12 @@ export default function Home() {
                   <div className="home__data">
                     <h3 className="home__subtitle"></h3>
                     <h1 className="home__title">
-                      CREATE <br /> YOUR OWN <br /> INDEX FUND{" "}
+                    Cryptocurrencies unite, <br/>
+                    create a spooky <br/>
+                    index in sight!{" "}
                     </h1>
                     <p className="home__description">
-                      Combine multiple cryptocurrencies into one. Gain exposure for all of them with one token. {" "}
+                    Create your perfect portfolio with ease - customize and rebalance your index token with just a few clicks. Take control of your investments like never before. {" "}
                     </p>
                     <div className="home__buttons">
                       <Link href="/create-index-token">
@@ -169,26 +171,23 @@ export default function Home() {
           <div className="about__container container grid">
             <div className="about__data">
               <h2 className="section__title about__title">
-                Best Performing Index <br /> this month{" "}
-                <br/> +19%
+                Integrated with Spookyswap
               </h2>
              
               <p className="about__description">
-                Night of all the saints, or all the dead, is celebrated on
-                October 31 and it is a very fun international celebration, this
-                celebration comes from ancient origins, and is already
-                celebrated by everyone.{" "}
+              Our platform seamlessly integrates with SpookySwap, a leading decentralized exchange for trading cryptocurrencies. With SpookySwap's secure and efficient trading infrastructure, you can easily buy and sell the underlying tokens that compose your custom index, and rebalance your portfolio whenever you want.{" "}
               </p>
 
-              <Link href="/create-index-token">
+            {/*}  <Link href="/create-index-token">
                 <Button color="dark" radius="md" size="lg">
                   Buy on SpookySwap
                 </Button>
               </Link>
+  */}
             </div>
             <img
               //   src="https://assets.codepen.io/7773162/about-img.png"
-              src="https://i.ibb.co/Yhk1SQm/businessman.png"
+              src="https://1999239926-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-MXi8tZ-Fm6oya_e72FM-887967055%2Fuploads%2FCdq58vMyUSRRlBvn0nkS%2FMark%20-%20Colored.svg?alt=media&token=c7f79d77-1a47-4383-a96e-206df81033e9"
               alt=""
               
             />
