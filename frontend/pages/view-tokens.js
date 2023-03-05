@@ -30,7 +30,7 @@ const ViewTokens = () => {
   const [modal, setModal] = useState(false);
   const [tokenCountModal, setTokenCountModal] = useState(false);
   const [redeemTokenModal, setRedeemTokenModal] = useState(false);
-  const [feeClaimModal, setFeeClaimModal] = useState(true);
+  const [feeClaimModal, setFeeClaimModal] = useState(false);
 
   const [tokens, setTokens] = useState([]);
   const [tokenNames, setTokenNames] = useState([]);
