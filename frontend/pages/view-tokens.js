@@ -13,7 +13,8 @@ import ERC_ABI from "../constants/ERC20_ABI.json";
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import { PumpkinAddress } from "../constants/PumpkinAddress";
 import { useNotification } from "web3uikit";
-
+import RedeemTokenModal from "../components/RedeemTokenModal";
+import FeeClaimModal from "../components/FeeClaimModal";
 const ViewTokens = () => {
   const dispatch = useNotification();
   const { runContractFunction } = useWeb3Contract();
@@ -27,7 +28,10 @@ const ViewTokens = () => {
     Moralis,
   } = useMoralis();
   const [modal, setModal] = useState(false);
-  const [tokenCountModal, setTokenCountModal] = useState(true); // change this
+  const [tokenCountModal, setTokenCountModal] = useState(false);
+  const [redeemTokenModal, setRedeemTokenModal] = useState(false);
+  const [feeClaimModal, setFeeClaimModal] = useState(true);
+
   const [tokens, setTokens] = useState([]);
   const [tokenNames, setTokenNames] = useState([]);
   const [tokenSymbols, setTokenSymbols] = useState([]);
@@ -114,8 +118,16 @@ const ViewTokens = () => {
         setTokenCountModal={setTokenCountModal}
         tokenCountModal={tokenCountModal}
       ></TokenCountModal>
-      {/* {tokens.join("\n")} */}
 
+      <RedeemTokenModal
+        redeemTokenModal={redeemTokenModal}
+        setRedeemTokenModal={setRedeemTokenModal}
+      ></RedeemTokenModal>
+
+      <FeeClaimModal
+        feeClaimModal={feeClaimModal}
+        setFeeClaimModal={setFeeClaimModal}
+      ></FeeClaimModal>
       <div className="bg-container">
         <div className="circle circle1"></div>
         <div className="circle circle2"></div>
@@ -155,6 +167,9 @@ const ViewTokens = () => {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "space-evenly",
+                      }}
+                      onClick={e => {
+                        setRedeemTokenModal(true);
                       }}
                     >
                       <span
@@ -224,7 +239,7 @@ const ViewTokens = () => {
                   <Button
                     color="indigo"
                     onClick={e => {
-                      setModal(true);
+                      setFeeClaimModal(true);
                     }}
                   >
                     <br />
