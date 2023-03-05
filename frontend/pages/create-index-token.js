@@ -7,11 +7,13 @@ import ERC20_ABI from "../constants/ERC20_ABI";
 import PUMPKIN_ABI from "../constants/PUMPKIN_ABI";
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import { PumpkinAddress } from "../constants/PumpkinAddress";
+import { useNotification } from "web3uikit";
 
 const COINGECKO_PRICE_FEED_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=weth,aave,wrapped-fantom,dai,usd-coin,tether,binance-usd,wrapped-bitcoin,chainlink,true-usd,frax&vs_currencies=usd";
 
 const CreateIndexToken = () => {
+  const dispatch=useNotification()
   const { runContractFunction } = useWeb3Contract();
   const { enableWeb3, authenticate, chainId, account, isWeb3Enabled } =
     useMoralis();
@@ -31,11 +33,21 @@ const CreateIndexToken = () => {
 
   const [tokenName, setTokenName] = useState("");
   const [tokenSymbol, setTokenSymbol] = useState("");
+
   const USDCAddress = "0x73778d5569E3798360C0F557CeB549092759A029";
   const WETHAddress = "0x31bF40f5642BCC6d41f28cccB2ADFB735722Bb30";
   const WBTCAddress = "0x7FA0D30b30aF032bd1d8453603D7Df948021eA60";
   const WFTMAddress = "0xeF35e201aaBEFe47Ff3e01c87ef6D35878588B0C";
   const AAVEAddress = "0x415cE4e20bD34F9620a926db1B6a9ca08424FCdb";
+
+  const successNotification = msg => {
+    dispatch({
+      type: "success",
+      message: `${msg} Successfully`,
+      title: `${msg}`,
+      position: "bottomR",
+    });
+  };
 
   const checkTokenRatio = () => {
     const sum = +usdc + +weth + +wbtc + +wftm + +aave;
@@ -140,8 +152,11 @@ const CreateIndexToken = () => {
         onSuccess: data => {
           console.log(data);
           resetValues();
+          successNotification(`Index Token Created`)
+
         },
       });
+      
     }
   };
 
