@@ -618,7 +618,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
               <br />
             </fieldset>
           </div>
-          {ethers.utils.parseUnits(tokenAmount.toString(), "ether").toString()}
+          {/* {ethers.utils.parseUnits(tokenAmount.toString(), "ether").toString()} */}
         </div>
       )}
     </>
