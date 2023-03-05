@@ -163,13 +163,17 @@ const CreateIndexToken = () => {
   const calculateIndexTokenPrice = () => {
     const price =
       /*(dai / 100) * parseFloat(coinPriceData[tokenSymbolAddress.dai.id].usd) +*/
-      (usdc / 100) * parseFloat(coinPriceData[tokenSymbolAddress.usdc.id].usd) +
+      (usdc / 100) *
+        parseFloat(coinPriceData[tokenSymbolAddress.usdc.id]?.usd) +
       //(usdt / 100) * parseFloat(coinPriceData[tokenSymbolAddress.usdt.id].usd) +
       //(busd / 100) * parseFloat(coinPriceData[tokenSymbolAddress.busd.id].usd) +
-      (wbtc / 100) * parseFloat(coinPriceData[tokenSymbolAddress.wbtc.id].usd) +
-      (weth / 100) * parseFloat(coinPriceData[tokenSymbolAddress.weth.id].usd) +
-      (wftm / 100) * parseFloat(coinPriceData[tokenSymbolAddress.wftm.id].usd) +
-      (aave / 100) * parseFloat(coinPriceData[tokenSymbolAddress.aave.id].usd);
+      (wbtc / 100) *
+        parseFloat(coinPriceData[tokenSymbolAddress.wbtc.id]?.usd) +
+      (weth / 100) *
+        parseFloat(coinPriceData[tokenSymbolAddress.weth.id]?.usd) +
+      (wftm / 100) *
+        parseFloat(coinPriceData[tokenSymbolAddress.wftm.id]?.usd) +
+      (aave / 100) * parseFloat(coinPriceData[tokenSymbolAddress.aave.id]?.usd);
     //(tusd / 100) * parseFloat(coinPriceData[tokenSymbolAddress.tusd.id].usd) +
     //(frax / 100) * parseFloat(coinPriceData[tokenSymbolAddress.frax.id].usd);
 

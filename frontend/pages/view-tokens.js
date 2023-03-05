@@ -29,9 +29,8 @@ const ViewTokens = () => {
   const [modal, setModal] = useState(false);
   const [tokenCountModal, setTokenCountModal] = useState(false);
   const [tokens, setTokens] = useState([]);
-
-  const [tokenName, setTokenName]=useState([])
-  const [tokenSymbol,setTokenSymbol]=useState([])
+  const [tokenNames, setTokenNames] = useState([]);
+  const [tokenSymbols, setTokenSymbols] = useState([]);
 
   const successNotification = msg => {
     dispatch({
@@ -41,6 +40,39 @@ const ViewTokens = () => {
       position: "bottomR",
     });
   };
+  async function getNames() {
+    runContractFunction({
+      params: {
+        abi: PUMPKIN_ABI,
+        contractAddress: PumpkinAddress,
+        functionName: "getAllNames",
+        params: {
+          _creator: account,
+        },
+      },
+      onError: error => console.log(error),
+      onSuccess: data => {
+        setTokenNames(data);
+      },
+    });
+  }
+
+  async function getSymbols() {
+    runContractFunction({
+      params: {
+        abi: PUMPKIN_ABI,
+        contractAddress: PumpkinAddress,
+        functionName: "getAllSymbols",
+        params: {
+          _creator: account,
+        },
+      },
+      onError: error => console.log(error),
+      onSuccess: data => {
+        setTokenSymbols(data);
+      },
+    });
+  }
   const getUserIndexTokens = async function () {
     await enableWeb3();
     // console.log(account);
@@ -61,28 +93,8 @@ const ViewTokens = () => {
           setTokens(data);
 
           successNotification(`Tokens Fetched`);
-
-          data.map(item=>{
-            console.log("inside the get name function");
-            runContractFunction({
-              params: {
-                abi: PUMPKIN_ABI,
-                contractAddress: PumpkinAddress,
-                functionName: "getName",
-                params: {
-                  _indexAddress: item,
-                },
-              },
-              //
-              onError: error => console.log(error),
-              onSuccess: data => {
-                console.log(data);
-                setTokenName(tokenName=>[...tokenName, data]);
-              },
-            });
-
-          })
-
+          getNames();
+          getSymbols();
         },
       });
     }
@@ -119,7 +131,7 @@ const ViewTokens = () => {
             !modal && (
               <div key={index} className="new__content">
                 <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
-                <h3 className="new__title">My Index Token</h3>
+                <h3 className="new__title">{`${tokenNames[index]} - ${tokenSymbols[index]}`}</h3>
                 {/* <span className="new__subtitle">Accessory</span> */}
 
                 <div className="new__prices">

@@ -113,6 +113,7 @@ contract PumpkinFactory {
         
     }
 
+
     /// @notice get balance of a single token balance in an index
     /// @param _indexAddress = address of index token
     /// @param underlyingIndex = index of Index token's underlying assets array
@@ -128,5 +129,25 @@ contract PumpkinFactory {
     function getSymbol(address _indexAddress) public view returns (string memory) {
         return IndexTokenNew(_indexAddress).getSymbol();
     }
+
+    function getAllNames(address _creator) public view returns (string[] memory) {
+        uint numTokens = getAmountOfIndexTokens(_creator);
+        string[] memory tokenNames = new string[](numTokens);
+        for(uint i; i < numTokens; i++) {
+            tokenNames[i] = getName(addressToTokens[_creator][i+1]);
+        }
+        return tokenNames;
+    }
+
+    function getAllSymbols(address _creator) public view returns (string[] memory) {
+        uint numTokens = getAmountOfIndexTokens(_creator); //number of tokens a user has created
+        string[] memory tokenSymbols = new string[](numTokens);   //memory array to store all symbols temporarily
+        for(uint i; i < numTokens; i++) {
+            tokenSymbols[i] = getSymbol(addressToTokens[_creator][i+1]); //assign 
+        }
+        
+        return tokenSymbols;
+    }
+
     
 }
