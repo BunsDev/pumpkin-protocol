@@ -41,7 +41,9 @@ const ViewTokens = () => {
   const successNotification = msg => {
     dispatch({
       type: "success",
-      message: `${msg} Successfully`,
+      message: `${msg} Successfully.
+      \n
+      (Come Back in a while for newly created tokens)`,
       title: `${msg}`,
       position: "bottomR",
     });
