@@ -9,6 +9,8 @@ import { ethers } from "ethers";
 import { PumpkinAddress } from "../constants/PumpkinAddress";
 import ERC20_ABI from "../constants/ERC20_ABI";
 import PUMPKIN_ABI from "../constants/PUMPKIN_ABI.json";
+import { fadeInUp, routeAnimation, stagger } from "../utils/animations";
+import { motion } from "framer-motion";
 
 const COINGECKO_PRICE_FEED_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=aave,wrapped-fantom,dai,usd-coin,tether,binance-usd,wrapped-bitcoin,chainlink,true-usd,frax&vs_currencies=usd";
@@ -26,7 +28,7 @@ const Modal = ({ modal, setModal }) => {
   const [aave, setAave] = useState(0);
   const [tusd, setTusd] = useState(0);
   const [frax, setFrax] = useState(0);
-  
+
   const [tokenAmount, setTokenAmount] = useState(1);
   const [underlyingTokens, setUnderlyingTokens] = useState([]);
   const [tokenRatios, setTokenRatios] = useState([]);
@@ -213,8 +215,6 @@ const Modal = ({ modal, setModal }) => {
     }
   }, []);
 
-
-
   const getUnderlyingTokens = async () => {
     runContractFunction({
       params: {
@@ -231,8 +231,6 @@ const Modal = ({ modal, setModal }) => {
         setUnderlyingTokens(data);
       },
     });
-    
-
   };
   const getUnderlyingTokenRatios = async () => {
     runContractFunction({
@@ -261,7 +259,14 @@ const Modal = ({ modal, setModal }) => {
               )
               .toString()
           );
-           console.log(ethers.BigNumber.from(parseFloat((ethers.utils.formatEther(parseInt(item._hex).toString())) * tokenAmount).toString()));
+          console.log(
+            ethers.BigNumber.from(
+              parseFloat(
+                ethers.utils.formatEther(parseInt(item._hex).toString()) *
+                  tokenAmount
+              ).toString()
+            )
+          );
         });
         setTokenRatios(data);
       },
@@ -282,17 +287,22 @@ const Modal = ({ modal, setModal }) => {
   return (
     <>
       {modal && (
-        <div className="modal-container">
+        <motion.div
+          className="modal-container"
+          variants={routeAnimation}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+        >
           <div className="index-token--container">
             {/* ------------------Get Token Address ------------------*/}
             <fieldset>
               <legend>Rebalance</legend>
               <h3>🍱 Change portions of each asset</h3>
-              <br/>
+              <br />
               <div className="index-token">
                 <div className="token-label--container">
                   <label className="token-name--label">Token Address - </label>
- 
                 </div>
                 <div className="token-slider">
                   <input
@@ -310,8 +320,8 @@ const Modal = ({ modal, setModal }) => {
                   variant="light"
                   color="red"
                   onClick={e => {
-                  getUnderlyingTokens(); 
-                  getUnderlyingTokenRatios();
+                    getUnderlyingTokens();
+                    getUnderlyingTokenRatios();
                   }}
                 >
                   <span
@@ -337,90 +347,94 @@ const Modal = ({ modal, setModal }) => {
             <fieldset>
               <legend>Index Composition</legend>
               <div>
-                <h3> Tokens </h3> <br/>
+                <h3> Tokens </h3> <br />
                 {underlyingTokens.join("\r\n")}
-                
               </div>
-              <br/>
+              <br />
               <div>
-                <h3>Token Ratios</h3> <br/>
-                 {tokenRatios.toString()}
+                <h3>Token Ratios</h3> <br />
+                {tokenRatios.toString()}
               </div>
-              <div>
-                
-              </div>
+              <div></div>
               <br />
             </fieldset>
             <fieldset>
               <legend> Amounts </legend>
               <div>
-                
                 <div className="index-token">
-                <div className="token-label--container">
-                  <label className="token-name--label">Asset to Sell - ⬆️ </label>
+                  <div className="token-label--container">
+                    <label className="token-name--label">
+                      Asset to Sell - ⬆️{" "}
+                    </label>
+                  </div>
+                  <div className="token-slider">
+                    <input
+                      required
+                      type="text"
+                      className="token-count--address"
+                      id="token-name"
+                      placeholder="0x..."
+                      onChange={e => {
+                        // setTokenAddress(e.target.value);
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="token-slider">
-                  <input
-                    required
-                    type="text"
-                    className="token-count--address"
-                    id="token-name"
-                    placeholder="0x..."
-                    onChange={e => {
-                     // setTokenAddress(e.target.value);
-                    }}
-                  />
-                </div>
-              </div>
               </div>
               <div>
-              <div className="index-token">
-                <div className="token-label--container">
-                  <label className="token-name--label">Amount to sell -  </label>
+                <div className="index-token">
+                  <div className="token-label--container">
+                    <label className="token-name--label">
+                      Amount to sell -{" "}
+                    </label>
+                  </div>
+                  <div className="token-slider">
+                    <input
+                      required
+                      type="text"
+                      className="token-count--address"
+                      id="token-name"
+                      placeholder="0"
+                      onChange={e => {
+                        // setTokenAddress(e.target.value);
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="token-slider">
-                  <input
-                    required
-                    type="text"
-                    className="token-count--address"
-                    id="token-name"
-                    placeholder="0"
-                    onChange={e => {
-                     // setTokenAddress(e.target.value);
-                    }}
-                  />
-                </div>
-              </div>
               </div>
               <div>
-              <div className="index-token">
-                <div className="token-label--container">
-                  <label className="token-name--label">Asset to buy - ⬇️</label>
-                </div>
-                <div className="token-slider">
-                  <input
-                    required
-                    type="text"
-                    className="token-count--address"
-                    id="token-name"
-                    placeholder="0x..."
-                    onChange={e => {
-                     // setTokenAddress(e.target.value);
-                    }}
-                  />
+                <div className="index-token">
+                  <div className="token-label--container">
+                    <label className="token-name--label">
+                      Asset to buy - ⬇️
+                    </label>
+                  </div>
+                  <div className="token-slider">
+                    <input
+                      required
+                      type="text"
+                      className="token-count--address"
+                      id="token-name"
+                      placeholder="0x..."
+                      onChange={e => {
+                        // setTokenAddress(e.target.value);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
-              </div>
-              Integrated with SpookySwap <img src="https://styles.redditmedia.com/t5_49ct3d/styles/communityIcon_kwspuvye8at61.png" className="spookyswap_icon"/>
+              Integrated with SpookySwap{" "}
+              <img
+                src="https://styles.redditmedia.com/t5_49ct3d/styles/communityIcon_kwspuvye8at61.png"
+                className="spookyswap_icon"
+              />
               <br />
               <br />
-            
             </fieldset>
 
             <fieldset>
               <legend>Approx Value in USD </legend>
               <div className="approx-token-price--container">
-            
                 <span>${approxTokenPrice.toFixed(2)}</span>
               </div>
               <span
@@ -491,7 +505,7 @@ const Modal = ({ modal, setModal }) => {
               <br />
             </fieldset>
           </div>
-        </div>
+        </motion.div>
       )}
     </>
   );

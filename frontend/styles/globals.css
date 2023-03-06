@@ -520,21 +520,21 @@ button {
 
 .pumpkin_icon {
   vertical-align: middle;
-  max-width:30px;
-  max-height:30px;
+  max-width: 30px;
+  max-height: 30px;
 }
 
 .crypto_icon {
-  max-width:25px;
+  max-width: 25px;
   max-height: 25px;
   vertical-align: middle;
-  margin-right:15px;
+  margin-right: 15px;
 }
 
 .spookyswap_icon {
-  max-width:30px;
+  max-width: 30px;
   max-height: 30px;
-  
+
   vertical-align: middle;
 }
 .new__content:hover .new__img {
@@ -1171,6 +1171,8 @@ hr {
   justify-content: space-evenly;
   flex-wrap: wrap;
   word-wrap: break-word;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 .view-token--buttons .mantine-wpz84t,

@@ -8,6 +8,8 @@ import PUMPKIN_ABI from "../constants/PUMPKIN_ABI";
 import ERC_ABI from "../constants/ERC20_ABI.json";
 import { PumpkinAddress } from "../constants/PumpkinAddress";
 import { ethers } from "ethers";
+import { fadeInUp, routeAnimation, stagger } from "../utils/animations";
+import { motion } from "framer-motion";
 const RedeemTokenModal = ({ redeemTokenModal, setRedeemTokenModal }) => {
   const { runContractFunction } = useWeb3Contract();
   const [tokenAddress, setTokenAddress] = useState("");
@@ -35,21 +37,25 @@ const RedeemTokenModal = ({ redeemTokenModal, setRedeemTokenModal }) => {
   return (
     <>
       {redeemTokenModal && (
-        <div className="modal-container">
+        <motion.div
+          variants={routeAnimation}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className="modal-container"
+        >
           <div className="index-token--container">
-          <fieldset>
-            <legend>Redeem</legend>
-            <h3>🔥 Burn index tokens and receive the underlying assets</h3>
-            <br/>
-         
-          </fieldset>
+            <fieldset>
+              <legend>Redeem</legend>
+              <h3>🔥 Burn index tokens and receive the underlying assets</h3>
+              <br />
+            </fieldset>
 
             {/* ------------------Get Token Address ------------------*/}
             <fieldset>
               <legend>Token Info</legend>
-              
-              <div className="index-token">
 
+              <div className="index-token">
                 <div className="token-label--container">
                   <label className="token-name--label">Token Address - </label>
                 </div>
@@ -86,8 +92,7 @@ const RedeemTokenModal = ({ redeemTokenModal, setRedeemTokenModal }) => {
                 </div>
               </div>
 
-            
-              <br/>
+              <br />
               <span
                 style={{
                   display: "flex",
@@ -146,7 +151,7 @@ const RedeemTokenModal = ({ redeemTokenModal, setRedeemTokenModal }) => {
             </fieldset>
           </div>
           {/* {ethers.utils.parseUnits(tokenAmount.toString(), "ether").toString()} */}
-        </div>
+        </motion.div>
       )}
     </>
   );

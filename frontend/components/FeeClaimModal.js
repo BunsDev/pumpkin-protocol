@@ -8,6 +8,8 @@ import PUMPKIN_ABI from "../constants/PUMPKIN_ABI";
 import ERC_ABI from "../constants/ERC20_ABI.json";
 import { PumpkinAddress } from "../constants/PumpkinAddress";
 import { ethers } from "ethers";
+import { fadeInUp, routeAnimation, stagger } from "../utils/animations";
+import { motion } from "framer-motion";
 const RedeemTokenModal = ({ feeClaimModal, setFeeClaimModal }) => {
   const { runContractFunction } = useWeb3Contract();
   const [tokenAddress, setTokenAddress] = useState("");
@@ -30,13 +32,22 @@ const RedeemTokenModal = ({ feeClaimModal, setFeeClaimModal }) => {
   return (
     <>
       {feeClaimModal && (
-        <div className="modal-container">
+        <motion.div
+          variants={routeAnimation}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className="modal-container"
+        >
           <div className="index-token--container">
             <fieldset>
               <legend>Claim Streaming Fee</legend>
-            
-              <h3>🚿 Creators of index tokens can claim 1% a year streaming fee from all its holders</h3>
-            <br/>
+
+              <h3>
+                🚿 Creators of index tokens can claim 1% a year streaming fee
+                from all its holders
+              </h3>
+              <br />
             </fieldset>
             {/* ------------------Get Token Address ------------------*/}
             <fieldset>
@@ -78,7 +89,6 @@ const RedeemTokenModal = ({ feeClaimModal, setFeeClaimModal }) => {
                 </div>
               </div> */}
 
-              
               <span
                 style={{
                   display: "flex",
@@ -137,7 +147,7 @@ const RedeemTokenModal = ({ feeClaimModal, setFeeClaimModal }) => {
             </fieldset>
           </div>
           {/* {ethers.utils.parseUnits(tokenAmount.toString(), "ether").toString()} */}
-        </div>
+        </motion.div>
       )}
     </>
   );
