@@ -19,10 +19,10 @@ export default function Home() {
                     <div className="home__indicator"></div>
                     <div className="home__details-img">
                       <h4 className="home__details-title">
-                        Copy popular investment strategies
+                      Invest in all of blockchain with one token
                       </h4>
                       <span className="home__details-subtitle">
-                        or let others follow in your footsteps
+                      Save your time and money
                       </span>
                     </div>
                   </div>
@@ -49,6 +49,7 @@ export default function Home() {
                 </div>
               </section>
 
+{/*}
               <section className="swiper-slide">
                 <div className="home__content grid">
                   <div className="home__group">
@@ -87,6 +88,8 @@ export default function Home() {
                   </div>
                 </div>
               </section>
+              */}
+
 
               <section className="swiper-slide">
                 <div className="home__content grid">
@@ -124,6 +127,9 @@ export default function Home() {
                   </div>
                 </div>
               </section>
+
+            
+              
             </div>
             <div className="swiper-pagination"></div>
           </div>
@@ -199,6 +205,7 @@ export default function Home() {
               //   src="https://assets.codepen.io/7773162/about-img.png"
               src="https://1999239926-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-MXi8tZ-Fm6oya_e72FM-887967055%2Fuploads%2FCdq58vMyUSRRlBvn0nkS%2FMark%20-%20Colored.svg?alt=media&token=c7f79d77-1a47-4383-a96e-206df81033e9"
               alt=""
+              className="about__img"
             />
           </div>
         </section>
@@ -207,14 +214,18 @@ export default function Home() {
           <div className="discount__container container grid">
             <div className="discount__data">
               <h2 className="discount__title">
-                Create your own index token today! <br />{" "}
+                Check out our project links! <br />{" "}
               </h2>
 
-              <Link href="/create-index-token">
-                <Button color="dark" radius="md" size="lg">
+                <a href="https://testnet.ftmscan.com/address/0x89d25B5Dd46Faab9D4cF506ae46675B6E6180546">FTMScan Explorer</a> <br/>
+                <a href="https://github.com/JoshWeb3/Pumpkin-Protocol">Github Repository</a> <br/>
+                <a href="https://pumpkin-protocol-fantom.vercel.app/">Deployment Link</a>
+
+              {/* <Link href="/create-index-token">
+               <Button color="dark" radius="md" size="lg">
                   Create Now
                 </Button>
-              </Link>
+              </Link>*/}
             </div>
             <img
               src="https://assets.codepen.io/7773162/discount-img.png"

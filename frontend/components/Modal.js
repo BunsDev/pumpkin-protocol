@@ -3,6 +3,12 @@ import axios from "axios";
 import { Alert, Button } from "@mantine/core";
 import { IoIosCreate } from "react-icons/io";
 import { ImCancelCircle } from "react-icons/im";
+import { AiOutlineUpload } from "react-icons/ai";
+import { useMoralis, useWeb3Contract } from "react-moralis";
+import { ethers } from "ethers";
+import { PumpkinAddress } from "../constants/PumpkinAddress";
+import ERC20_ABI from "../constants/ERC20_ABI";
+import PUMPKIN_ABI from "../constants/PUMPKIN_ABI.json";
 
 const COINGECKO_PRICE_FEED_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=aave,wrapped-fantom,dai,usd-coin,tether,binance-usd,wrapped-bitcoin,chainlink,true-usd,frax&vs_currencies=usd";
@@ -20,7 +26,13 @@ const Modal = ({ modal, setModal }) => {
   const [aave, setAave] = useState(0);
   const [tusd, setTusd] = useState(0);
   const [frax, setFrax] = useState(0);
+  
+  const [tokenAmount, setTokenAmount] = useState(1);
+  const [underlyingTokens, setUnderlyingTokens] = useState([]);
+  const [tokenRatios, setTokenRatios] = useState([]);
+  const { runContractFunction } = useWeb3Contract();
   const [tokenAddress, setTokenAddress] = useState("");
+
   const calculateIndexTokenPrice = () => {
     const price =
       (dai / 100) * parseFloat(coinPriceData[tokenSymbolAddress.dai.id].usd) +
@@ -200,6 +212,73 @@ const Modal = ({ modal, setModal }) => {
       alert(err.message);
     }
   }, []);
+
+
+
+  const getUnderlyingTokens = async () => {
+    runContractFunction({
+      params: {
+        abi: PUMPKIN_ABI,
+        contractAddress: PumpkinAddress, // specify the networkId
+        functionName: "getAllUnderlying",
+        params: {
+          _indexAddress: tokenAddress,
+        },
+      },
+      onError: error => console.log(error),
+      onSuccess: data => {
+        console.log(data); //heRe
+        setUnderlyingTokens(data);
+      },
+    });
+    
+
+  };
+  const getUnderlyingTokenRatios = async () => {
+    runContractFunction({
+      params: {
+        abi: PUMPKIN_ABI,
+        contractAddress: PumpkinAddress, // specify the networkId
+        functionName: "getAllPercentages",
+        params: {
+          _indexAddress: tokenAddress,
+        },
+      },
+      onError: error => console.log(error),
+      onSuccess: data => {
+        console.log(data);
+        // do something
+        // set the array with bignumber value directly, while using the percentage convert it in the if else
+        data.map(item => {
+          console.log(
+            ethers.utils
+              .parseUnits(
+                parseFloat(
+                  ethers.utils.formatEther(parseInt(item._hex).toString()) *
+                    tokenAmount
+                ).toString(),
+                "ether"
+              )
+              .toString()
+          );
+           console.log(ethers.BigNumber.from(parseFloat((ethers.utils.formatEther(parseInt(item._hex).toString())) * tokenAmount).toString()));
+        });
+        setTokenRatios(data);
+      },
+    });
+  };
+  /*ethers.utils
+            .parseUnits(
+              parseFloat(
+                ethers.utils.formatEther(
+                  parseInt(tokenRatios._hex).toString()
+                ) * tokenAmount
+              ).toString(),
+              "ether"
+            )
+            .toString()
+            */
+
   return (
     <>
       {modal && (
@@ -207,10 +286,13 @@ const Modal = ({ modal, setModal }) => {
           <div className="index-token--container">
             {/* ------------------Get Token Address ------------------*/}
             <fieldset>
-              <legend>Token Info</legend>
+              <legend>Rebalance</legend>
+              <h3>🍱 Change portions of each asset</h3>
+              <br/>
               <div className="index-token">
                 <div className="token-label--container">
                   <label className="token-name--label">Token Address - </label>
+ 
                 </div>
                 <div className="token-slider">
                   <input
@@ -224,227 +306,121 @@ const Modal = ({ modal, setModal }) => {
                     }}
                   />
                 </div>
+                <Button
+                  variant="light"
+                  color="red"
+                  onClick={e => {
+                  getUnderlyingTokens(); 
+                  getUnderlyingTokenRatios();
+                  }}
+                >
+                  <span
+                    className="create-token--btn"
+                    style={{
+                      fontSize: "1.5rem",
+                      textDecoration: "none !important",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <AiOutlineUpload></AiOutlineUpload>
+                    <span
+                      style={{
+                        marginRight: "10px",
+                      }}
+                    ></span>
+                    Load
+                  </span>
+                </Button>
               </div>
             </fieldset>
             <fieldset>
-              <legend>Index Token Percentage</legend>
-              {/* DAI */}
-              <div className="underlying-token">
+              <legend>Index Composition</legend>
+              <div>
+                <h3> Tokens </h3> <br/>
+                {underlyingTokens.join("\r\n")}
+                
+              </div>
+              <br/>
+              <div>
+                <h3>Token Ratios</h3> <br/>
+                 {tokenRatios.toString()}
+              </div>
+              <div>
+                
+              </div>
+              <br />
+            </fieldset>
+            <fieldset>
+              <legend> Amounts </legend>
+              <div>
+                
+                <div className="index-token">
                 <div className="token-label--container">
-                  <label className="token-label">DAI</label>
+                  <label className="token-name--label">Asset to Sell - ⬆️ </label>
                 </div>
                 <div className="token-slider">
                   <input
                     required
-                    type="range"
-                    className="depend"
-                    min="0"
-                    max="100"
-                    value={dai}
-                    step="1"
-                    onChange={handleChange}
-                    id="dai"
+                    type="text"
+                    className="token-count--address"
+                    id="token-name"
+                    placeholder="0x..."
+                    onChange={e => {
+                     // setTokenAddress(e.target.value);
+                    }}
                   />
-                  <label id="dai_percentage">{dai}</label>%
                 </div>
               </div>
-              <br />
-              {/* USDC */}
-              <div className="underlying-token">
+              </div>
+              <div>
+              <div className="index-token">
                 <div className="token-label--container">
-                  <label className="token-label">USDC</label>
+                  <label className="token-name--label">Amount to sell -  </label>
                 </div>
                 <div className="token-slider">
                   <input
                     required
-                    type="range"
-                    className="depend"
-                    min="0"
-                    max="100"
-                    value={usdc}
-                    step="1"
-                    onChange={handleChange}
-                    id="usdc"
+                    type="text"
+                    className="token-count--address"
+                    id="token-name"
+                    placeholder="0"
+                    onChange={e => {
+                     // setTokenAddress(e.target.value);
+                    }}
                   />
-                  <label id="usdc_percentage">{usdc}</label>%
                 </div>
               </div>
-              <br />
-              {/* USDT */}
-              <div className="underlying-token">
+              </div>
+              <div>
+              <div className="index-token">
                 <div className="token-label--container">
-                  <label className="token-label">USDT</label>
+                  <label className="token-name--label">Asset to buy - ⬇️</label>
                 </div>
                 <div className="token-slider">
                   <input
                     required
-                    type="range"
-                    className="depend"
-                    min="0"
-                    max="100"
-                    value={usdt}
-                    step="1"
-                    onChange={handleChange}
-                    id="usdt"
+                    type="text"
+                    className="token-count--address"
+                    id="token-name"
+                    placeholder="0x..."
+                    onChange={e => {
+                     // setTokenAddress(e.target.value);
+                    }}
                   />
-                  <label id="usdt_percentage">{usdt}</label>%
                 </div>
               </div>
-              <br />
-              {/* BUSD */}
-              <div className="underlying-token">
-                <div className="token-label--container">
-                  <label className="token-label">BUSD</label>
-                </div>
-                <div className="token-slider">
-                  <input
-                    required
-                    type="range"
-                    className="depend"
-                    min="0"
-                    max="100"
-                    value={busd}
-                    step="1"
-                    onChange={handleChange}
-                    id="busd"
-                  />
-                  <label id="busd_percentage">{busd}</label>%
-                </div>
               </div>
+              Integrated with SpookySwap <img src="https://styles.redditmedia.com/t5_49ct3d/styles/communityIcon_kwspuvye8at61.png" className="spookyswap_icon"/>
               <br />
-              {/* WBTC */}
-              <div className="underlying-token">
-                <div className="token-label--container">
-                  <label className="token-label">WBTC</label>
-                </div>
-                <div className="token-slider">
-                  <input
-                    required
-                    type="range"
-                    className="depend"
-                    min="0"
-                    max="100"
-                    value={wbtc}
-                    step="1"
-                    onChange={handleChange}
-                    id="wbtc"
-                  />
-                  <label id="wbtc_percentage">{wbtc}</label>%
-                </div>
-              </div>
               <br />
-              {/* LINK */}
-              <div className="underlying-token">
-                <div className="token-label--container">
-                  <label className="token-label">LINK</label>
-                </div>
-                <div className="token-slider">
-                  <input
-                    required
-                    type="range"
-                    className="depend"
-                    min="0"
-                    max="100"
-                    value={link}
-                    step="1"
-                    onChange={handleChange}
-                    id="chain-link"
-                  />
-                  <label id="chain-link_percentage">{link}</label>%
-                </div>
-              </div>
-              <br />
-              {/* WFTM */}
-              <div className="underlying-token">
-                <div className="token-label--container">
-                  <label className="token-label">WFTM</label>
-                </div>
-                <div className="token-slider">
-                  <input
-                    required
-                    type="range"
-                    className="depend"
-                    min="0"
-                    max="100"
-                    value={wftm}
-                    step="1"
-                    onChange={handleChange}
-                    id="wftm"
-                  />
-                  <label id="wftm_percentage">{wftm}</label>%
-                </div>
-              </div>
-              <br />
-              {/* AAVE */}
-              <div className="underlying-token">
-                <div className="token-label--container">
-                  <label className="token-label">AAVE</label>
-                </div>
-                <div className="token-slider">
-                  <input
-                    required
-                    type="range"
-                    className="depend"
-                    min="0"
-                    max="100"
-                    value={aave}
-                    step="1"
-                    onChange={handleChange}
-                    id="aave"
-                  />
-                  <label id="aave_percentage">{aave}</label>%
-                </div>
-              </div>
-              <br />
-              {/* TUSD */}
-              <div className="underlying-token">
-                <div className="token-label--container">
-                  <label className="token-label">TUSD</label>
-                </div>
-                <div className="token-slider">
-                  <input
-                    required
-                    type="range"
-                    className="depend"
-                    min="0"
-                    max="100"
-                    value={tusd}
-                    step="1"
-                    onChange={handleChange}
-                    id="tusd"
-                  />
-                  <label id="tusd_percentage">{tusd}</label>%
-                </div>
-              </div>
-              <br />
-              {/* FRAX */}
-              <div className="underlying-token">
-                <div className="token-label--container">
-                  <label className="token-label">FRAX</label>
-                </div>
-                <div className="token-slider">
-                  <input
-                    required
-                    type="range"
-                    className="depend"
-                    min="0"
-                    max="100"
-                    value={frax}
-                    step="1"
-                    onChange={handleChange}
-                    id="frax"
-                  />
-                  <label id="frax_percentage">{frax}</label>%
-                </div>
-              </div>
-
-              <br />
+            
             </fieldset>
 
             <fieldset>
-              <legend>Update Token</legend>
+              <legend>Approx Value in USD </legend>
               <div className="approx-token-price--container">
-                Approx Value in USD :{" "}
+            
                 <span>${approxTokenPrice.toFixed(2)}</span>
               </div>
               <span
