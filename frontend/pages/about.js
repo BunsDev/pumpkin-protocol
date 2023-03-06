@@ -15,14 +15,14 @@ const about = () => {
 Our innovation provides a valuable contribution to the Fantom community by filling this gap and offering a new option for users. We are excited to share our project with others and look forward to its impact on the ecosystem. {" "}
           </p>
 
-          <Link href="/create-index-token">
+          
             <Button color="dark" radius="md" size="lg">
-              Create Now
+              See Devpost
             </Button>
-          </Link>
+        
         </div>
         <img
-          src="https://assets.codepen.io/7773162/about-img.png"
+          src="https://i.ibb.co/w4b5hZt/pumpkinlogo.png"
           alt=""
           className="about__img"
         />

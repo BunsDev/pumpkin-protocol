@@ -509,7 +509,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
         );
       }
 
-      await contractFunctionIssueToken();
+      // await contractFunctionIssueToken();
     } catch (err) {
       window.alert(err);
     }

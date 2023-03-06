@@ -235,7 +235,7 @@ const ViewTokens = () => {
                       Rebalance Tokens
                     </span>
                   </Button>
-
+                        <p>
                   <Button
                     color="indigo"
                     onClick={e => {
@@ -264,6 +264,7 @@ const ViewTokens = () => {
                       Claim Fee
                     </span>
                   </Button>
+                  </p>
                 </div>
               </div>
             )
