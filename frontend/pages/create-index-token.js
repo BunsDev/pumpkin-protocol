@@ -347,7 +347,7 @@ const CreateIndexToken = () => {
       <div className="index-token--container">
         <fieldset>
           <legend>Create an Index Token</legend>
-          <h3>✨ Create your own index token. Define it's name, the symbol, and percentages of each asset.</h3>
+          <h3>✨ Create your own index token. Define its name, the symbol, and percentages of each asset.</h3>
           <br/>
         </fieldset>
         <fieldset>
