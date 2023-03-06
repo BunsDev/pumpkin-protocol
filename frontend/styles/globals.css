@@ -1021,13 +1021,21 @@ label {
   text-decoration: underline;
   font-weight: 600;
 }
-.underlying-token {
+.underlying-token,
+.underlying-token--price {
   display: flex;
   width: 50vw;
   justify-content: space-around;
   align-items: center;
   margin: 0 auto;
   flex-wrap: wrap;
+}
+.underlying-token--price {
+  justify-content: center;
+}
+.approx-symbol {
+  margin: 0 10px;
+  text-decoration: none !important;
 }
 .index-token {
   display: flex;
@@ -1172,6 +1180,7 @@ hr {
   flex-wrap: wrap;
   word-wrap: break-word;
   max-width: 300px;
+
   margin: 0 auto;
 }
 
