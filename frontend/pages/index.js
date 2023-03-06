@@ -91,7 +91,7 @@ export default function Home() {
               */}
 
 
-              <section className="swiper-slide">
+              {/* <section className="swiper-slide">
                 <div className="home__content grid">
                   <div className="home__group">
                     <img
@@ -126,7 +126,7 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-              </section>
+              </section> */}
 
             
               
