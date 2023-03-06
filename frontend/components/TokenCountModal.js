@@ -75,7 +75,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
               )
               .toString()
           );
-          // console.log(ethers.BigNumber.from(parseFloat((ethers.utils.formatEther(parseInt(item._hex).toString())) * tokenAmount).toString()));
+           console.log(ethers.BigNumber.from(parseFloat((ethers.utils.formatEther(parseInt(item._hex).toString())) * tokenAmount).toString()));
         });
         setTokenRatios(data);
       },
@@ -520,9 +520,19 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       {tokenCountModal && (
         <div className="modal-container">
           <div className="index-token--container">
+            <fieldset>
+              <legend>Issue</legend>
+            
+              <h3>📒 Mint new index tokens</h3>
+              <br/>
+              <h4>1. Approve all tokens for transfer</h4>
+              <h4>2. Mint index tokens!</h4>
+              <br/>
+            </fieldset>
             {/* ------------------Get Token Address ------------------*/}
             <fieldset>
               <legend>Token Info</legend>
+              
               <div className="index-token">
                 <div className="token-label--container">
                   <label className="token-name--label">Token Address - </label>
@@ -557,10 +567,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
                   />
                 </div>
               </div>
-            </fieldset>
-
-            <fieldset>
-              <legend>Issue new tokens</legend>
+                  <br/>
               <span
                 style={{
                   display: "flex",

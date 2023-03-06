@@ -37,10 +37,19 @@ const RedeemTokenModal = ({ redeemTokenModal, setRedeemTokenModal }) => {
       {redeemTokenModal && (
         <div className="modal-container">
           <div className="index-token--container">
+          <fieldset>
+            <legend>Redeem</legend>
+            <h3>🔥 Burn index tokens and receive the underlying assets</h3>
+            <br/>
+         
+          </fieldset>
+
             {/* ------------------Get Token Address ------------------*/}
             <fieldset>
               <legend>Token Info</legend>
+              
               <div className="index-token">
+
                 <div className="token-label--container">
                   <label className="token-name--label">Token Address - </label>
                 </div>
@@ -76,10 +85,9 @@ const RedeemTokenModal = ({ redeemTokenModal, setRedeemTokenModal }) => {
                   />
                 </div>
               </div>
-            </fieldset>
 
-            <fieldset>
-              <legend>Redeem tokens</legend>
+            
+              <br/>
               <span
                 style={{
                   display: "flex",
@@ -103,7 +111,7 @@ const RedeemTokenModal = ({ redeemTokenModal, setRedeemTokenModal }) => {
                         marginRight: "10px",
                       }}
                     ></span>
-                    Redeem Tokens
+                    Submit
                   </span>
                 </Button>
 

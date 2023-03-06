@@ -346,6 +346,11 @@ const CreateIndexToken = () => {
       </div>
       <div className="index-token--container">
         <fieldset>
+          <legend>Create an Index Token</legend>
+          <h3>✨ Create your own index token. Define it's name, the symbol, and percentages of each asset.</h3>
+          <br/>
+        </fieldset>
+        <fieldset>
           <legend>Token Info</legend>
           <div className="index-token">
             <div className="token-label--container">
@@ -357,6 +362,7 @@ const CreateIndexToken = () => {
                 type="text"
                 className="token-name"
                 id="token-name"
+                placeholder="Awesome Index"
                 onChange={e => {
                   setTokenName(e.target.value);
                 }}
@@ -373,6 +379,7 @@ const CreateIndexToken = () => {
                 type="text"
                 className="token-symbol"
                 id="token-name"
+                placeholder="AWSM"
                 onChange={e => {
                   setTokenSymbol(e.target.value);
                 }}
@@ -407,7 +414,7 @@ const CreateIndexToken = () => {
           {/* USDC */}
           <div className="underlying-token">
             <div className="token-label--container">
-              <label className="token-label">USDC</label>
+              <label className="token-label"><img src="https://seeklogo.com/images/U/usd-coin-usdc-logo-CB4C5B1C51-seeklogo.com.png" className="crypto_icon"/>USDC</label>
             </div>
             <div className="token-slider">
               <input
@@ -473,7 +480,7 @@ const CreateIndexToken = () => {
           {/* WBTC */}
           <div className="underlying-token">
             <div className="token-label--container">
-              <label className="token-label">WBTC</label>
+              <label className="token-label"> <img src="https://cryptologos.cc/logos/wrapped-bitcoin-wbtc-logo.png" className="crypto_icon"/>WBTC</label>
             </div>
             <div className="token-slider">
               <input
@@ -494,7 +501,7 @@ const CreateIndexToken = () => {
           {/* WETH */}
           <div className="underlying-token">
             <div className="token-label--container">
-              <label className="token-label">WETH</label>
+              <label className="token-label"> <img src="https://www.pngall.com/wp-content/uploads/10/Ethereum-Logo-PNG.png" className="crypto_icon"/>WETH</label>
             </div>
             <div className="token-slider">
               <input
@@ -515,7 +522,7 @@ const CreateIndexToken = () => {
           {/* WFTM */}
           <div className="underlying-token">
             <div className="token-label--container">
-              <label className="token-label">WFTM</label>
+              <label className="token-label"> <img src="https://cryptologos.cc/logos/fantom-ftm-logo.png" className="crypto_icon"/>WFTM</label>
             </div>
             <div className="token-slider">
               <input
@@ -536,7 +543,7 @@ const CreateIndexToken = () => {
           {/* AAVE */}
           <div className="underlying-token">
             <div className="token-label--container">
-              <label className="token-label">AAVE</label>
+              <label className="token-label"> <img src="https://cryptologos.cc/logos/aave-aave-logo.png" className="crypto_icon"/>AAVE</label>
             </div>
             <div className="token-slider">
               <input

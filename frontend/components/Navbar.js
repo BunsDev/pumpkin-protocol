@@ -8,7 +8,8 @@ const Navbar = () => {
     <header className="header" id="header">
       <nav className="nav container">
         <Link href="/" className="nav__logo">
-          <p>Pumpkin Index</p>
+          <p><img src="https://aux2.iconspalace.com/uploads/pumpkin-icon-256-169712166.png" className="pumpkin_icon"/>
+            Pumpkin Index</p>
         </Link>
         <div className="nav__menu" id="nav-menu">
           <ul className="nav__list">

@@ -517,6 +517,26 @@ button {
 .new__icon {
   font-size: 1.25rem;
 }
+
+.pumpkin_icon {
+  vertical-align: middle;
+  max-width:30px;
+  max-height:30px;
+}
+
+.crypto_icon {
+  max-width:25px;
+  max-height: 25px;
+  vertical-align: middle;
+  margin-right:15px;
+}
+
+.spookyswap_icon {
+  max-width:30px;
+  max-height: 30px;
+  
+  vertical-align: middle;
+}
 .new__content:hover .new__img {
   transform: translateY(-0.5rem);
 }

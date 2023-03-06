@@ -32,6 +32,12 @@ const RedeemTokenModal = ({ feeClaimModal, setFeeClaimModal }) => {
       {feeClaimModal && (
         <div className="modal-container">
           <div className="index-token--container">
+            <fieldset>
+              <legend>Claim Streaming Fee</legend>
+            
+              <h3>🚿 Creators of index tokens can claim 1% a year streaming fee from all its holders</h3>
+            <br/>
+            </fieldset>
             {/* ------------------Get Token Address ------------------*/}
             <fieldset>
               <legend>Token Info</legend>
@@ -71,10 +77,8 @@ const RedeemTokenModal = ({ feeClaimModal, setFeeClaimModal }) => {
                   />
                 </div>
               </div> */}
-            </fieldset>
 
-            <fieldset>
-              <legend>Claim Fee</legend>
+              
               <span
                 style={{
                   display: "flex",
