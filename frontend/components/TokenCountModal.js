@@ -8,6 +8,8 @@ import { ethers } from "ethers";
 import { PumpkinAddress } from "../constants/PumpkinAddress";
 import ERC20_ABI from "../constants/ERC20_ABI";
 import PUMPKIN_ABI from "../constants/PUMPKIN_ABI.json";
+import { fadeInUp, routeAnimation, stagger } from "../utils/animations";
+import { motion } from "framer-motion";
 const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
   const [tokenAddress, setTokenAddress] = useState("");
   const [tokenAmount, setTokenAmount] = useState(1);
@@ -75,7 +77,14 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
               )
               .toString()
           );
-           console.log(ethers.BigNumber.from(parseFloat((ethers.utils.formatEther(parseInt(item._hex).toString())) * tokenAmount).toString()));
+          console.log(
+            ethers.BigNumber.from(
+              parseFloat(
+                ethers.utils.formatEther(parseInt(item._hex).toString()) *
+                  tokenAmount
+              ).toString()
+            )
+          );
         });
         setTokenRatios(data);
       },
@@ -518,21 +527,27 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
   return (
     <>
       {tokenCountModal && (
-        <div className="modal-container">
+        <motion.div
+          className="modal-container"
+          variants={routeAnimation}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+        >
           <div className="index-token--container">
             <fieldset>
               <legend>Issue</legend>
-            
+
               <h3>📒 Mint new index tokens</h3>
-              <br/>
+              <br />
               <h4>1. Approve all tokens for transfer</h4>
               <h4>2. Mint index tokens!</h4>
-              <br/>
+              <br />
             </fieldset>
             {/* ------------------Get Token Address ------------------*/}
             <fieldset>
               <legend>Token Info</legend>
-              
+
               <div className="index-token">
                 <div className="token-label--container">
                   <label className="token-name--label">Token Address - </label>
@@ -567,7 +582,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
                   />
                 </div>
               </div>
-                  <br/>
+              <br />
               <span
                 style={{
                   display: "flex",
@@ -626,7 +641,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
             </fieldset>
           </div>
           {/* {ethers.utils.parseUnits(tokenAmount.toString(), "ether").toString()} */}
-        </div>
+        </motion.div>
       )}
     </>
   );

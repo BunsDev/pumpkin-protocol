@@ -9,11 +9,9 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { NotificationProvider } from "web3uikit";
-
+import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/router";
 import { fantom, fantomTestnet } from "wagmi/chains";
-
-import { alchemyProvider } from "wagmi/providers/alchemy";
-
 import { publicProvider } from "wagmi/providers/public";
 import { MoralisProvider } from "react-moralis";
 
@@ -33,6 +31,7 @@ const wagmiClient = createClient({
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {}, []);
+  const router = useRouter();
   return (
     <>
       <Script
@@ -57,7 +56,30 @@ function MyApp({ Component, pageProps }) {
           <MoralisProvider initializeOnMount={false}>
             <Navbar></Navbar>
             <NotificationProvider>
-              <Component {...pageProps} />
+              <AnimatePresence mode="wait" />
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: 1,
+                  transition: {
+                    delay: 0.25,
+                    duration: 0.5,
+                  },
+                }}
+                exit={{
+                  opacity: 0,
+                  backgroundColor: "transparent",
+
+                  transition: {
+                    delay: 0.25,
+                    ease: "easeInOut",
+                  },
+                }}
+                key={router.route}
+                className="content"
+              >
+                <Component {...pageProps} />
+              </motion.div>
             </NotificationProvider>
           </MoralisProvider>
         </RainbowKitProvider>

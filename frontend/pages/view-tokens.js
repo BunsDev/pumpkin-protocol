@@ -15,6 +15,8 @@ import { PumpkinAddress } from "../constants/PumpkinAddress";
 import { useNotification } from "web3uikit";
 import RedeemTokenModal from "../components/RedeemTokenModal";
 import FeeClaimModal from "../components/FeeClaimModal";
+import { motion } from "framer-motion";
+import { fadeInUp, routeAnimation, stagger } from "../utils/animations";
 const ViewTokens = () => {
   const dispatch = useNotification();
   const { runContractFunction } = useWeb3Contract();
@@ -135,13 +137,22 @@ const ViewTokens = () => {
         <div className="circle circle4"></div>
       </div>
       {/* TODO create a update token quantity modal */}
-      <div className="view-token--container">
+      <motion.div
+        variants={fadeInUp}
+        initial="initial"
+        animate="animate"
+        className="view-token--container"
+      >
         {/* {account} */}
 
         {tokens.map(
           (item, index) =>
             !modal && (
-              <div key={index} className="new__content">
+              <motion.div
+                variants={fadeInUp}
+                key={index}
+                className="new__content"
+              >
                 <img src={"/images/ftm-logo.png"} alt="" className="new__img" />
                 <h3 className="new__title">{`${tokenNames[index]} - ${tokenSymbols[index]}`}</h3>
                 {/* <span className="new__subtitle">Accessory</span> */}
@@ -235,7 +246,7 @@ const ViewTokens = () => {
                       Rebalance Tokens
                     </span>
                   </Button>
-                        <p>
+
                   <Button
                     color="indigo"
                     onClick={e => {
@@ -264,12 +275,11 @@ const ViewTokens = () => {
                       Claim Fee
                     </span>
                   </Button>
-                  </p>
                 </div>
-              </div>
+              </motion.div>
             )
         )}
-      </div>
+      </motion.div>
     </>
   );
 };
