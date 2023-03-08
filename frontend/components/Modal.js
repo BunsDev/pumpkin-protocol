@@ -14,6 +14,12 @@ import { motion } from "framer-motion";
 
 const COINGECKO_PRICE_FEED_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=aave,wrapped-fantom,dai,usd-coin,tether,binance-usd,wrapped-bitcoin,chainlink,true-usd,frax&vs_currencies=usd";
+
+const USDCAddress = "0x73778d5569E3798360C0F557CeB549092759A029";
+const WETHAddress = "0x31bF40f5642BCC6d41f28cccB2ADFB735722Bb30";
+const WBTCAddress = "0x7FA0D30b30aF032bd1d8453603D7Df948021eA60";
+const WFTMAddress = "0xeF35e201aaBEFe47Ff3e01c87ef6D35878588B0C";
+const AAVEAddress = "0x415cE4e20bD34F9620a926db1B6a9ca08424FCdb";
 const Modal = ({ modal, setModal }) => {
   const [coinPriceData, setCoinPriceData] = useState({});
   const [timestamp, setTimestamp] = useState(Date.now());
@@ -433,9 +439,32 @@ const Modal = ({ modal, setModal }) => {
             </fieldset>
 
             <fieldset>
-              <legend>Approx Value in USD </legend>
-              <div className="approx-token-price--container">
-                <span>${approxTokenPrice.toFixed(2)}</span>
+              <legend> Actions </legend>
+              <div
+                className="index-token"
+                style={{
+                  textAlign: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                }}
+              >
+                <div className="token-addresses">
+                  <span
+                    style={{
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Import the mock tokens from the contracts below
+                  </span>
+                  <br />
+                  <span>USDC - {USDCAddress}</span> <br />
+                  <span>WETH - {WETHAddress}</span> <br />
+                  <span>WTBC - {WBTCAddress}</span> <br />
+                  <span>WFTM - {WFTMAddress}</span> <br />
+                  <span>AAVE - {AAVEAddress}</span> <br />
+                </div>
               </div>
               <span
                 style={{

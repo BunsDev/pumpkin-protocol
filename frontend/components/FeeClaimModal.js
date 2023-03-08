@@ -10,9 +10,28 @@ import { PumpkinAddress } from "../constants/PumpkinAddress";
 import { ethers } from "ethers";
 import { fadeInUp, routeAnimation, stagger } from "../utils/animations";
 import { motion } from "framer-motion";
+import { useNotification } from "web3uikit";
 const RedeemTokenModal = ({ feeClaimModal, setFeeClaimModal }) => {
   const { runContractFunction } = useWeb3Contract();
   const [tokenAddress, setTokenAddress] = useState("");
+  const dispatch = useNotification();
+  const successNotification = msg => {
+    dispatch({
+      type: "success",
+      message: `${msg} Successfully`,
+      title: `${msg}`,
+      position: "bottomR",
+    });
+  };
+  const failureNotification = msg => {
+    dispatch({
+      type: "error",
+      message: `${msg} ( View console for more info )`,
+      title: `${msg}`,
+      position: "bottomR",
+    });
+  };
+
   const claimFee = async () => {
     runContractFunction({
       params: {
@@ -20,11 +39,15 @@ const RedeemTokenModal = ({ feeClaimModal, setFeeClaimModal }) => {
         contractAddress: PumpkinAddress, // specify the networkId
         functionName: "collectFee",
         params: {
-          _tokenAddress: tokenAddress,
+          _indexAddress: tokenAddress,
         },
       },
-      onError: error => console.log(error),
+      onError: error => {
+        failureNotification(error.message);
+        console.log(error);
+      },
       onSuccess: data => {
+        successNotification("Token Fee Claimed");
         console.log(data);
       },
     });

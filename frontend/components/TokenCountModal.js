@@ -10,14 +10,31 @@ import ERC20_ABI from "../constants/ERC20_ABI";
 import PUMPKIN_ABI from "../constants/PUMPKIN_ABI.json";
 import { fadeInUp, routeAnimation, stagger } from "../utils/animations";
 import { motion } from "framer-motion";
+import { useNotification } from "web3uikit";
 const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
+  const dispatch = useNotification();
   const [tokenAddress, setTokenAddress] = useState("");
   const [tokenAmount, setTokenAmount] = useState(1);
   const [underlyingTokens, setUnderlyingTokens] = useState([]);
   const [tokenRatios, setTokenRatios] = useState([]);
   const { runContractFunction } = useWeb3Contract();
   const { enableWeb3 } = useMoralis();
-
+  const successNotification = msg => {
+    dispatch({
+      type: "success",
+      message: `${msg} Successfully`,
+      title: `${msg}`,
+      position: "bottomR",
+    });
+  };
+  const failureNotification = msg => {
+    dispatch({
+      type: "error",
+      message: `${msg} ( View console for more info )`,
+      title: `${msg}`,
+      position: "bottomR",
+    });
+  };
   const contractFunctionIssueToken = async () => {
     const Web3 = await enableWeb3();
     runContractFunction({
@@ -31,9 +48,13 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
           amount: ethers.utils.parseEther("1"),
         },
       },
-      onError: error => console.log(error),
+      onError: error => {
+        failureNotification(error.message);
+        console.log(error);
+      },
       onSuccess: data => {
         console.log(data);
+        successNotification("Token Issued!");
       },
     });
   };
@@ -522,7 +543,8 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       //   const AAVEWithSigner = AAVE.connect(signer);
       //   await AAVEWithSigner.approve(tokenAddress, ethers.utils.parseEther("1"));
     } catch (err) {
-      window.alert(err);
+      //   window.alert(err);
+      failureNotification(err.message);
     }
   };
 
@@ -541,6 +563,14 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
               <legend>Issue</legend>
 
               <h3>📒 Mint new index tokens</h3>
+              <br />
+              <h4>
+                <u>
+                  {" "}
+                  NOTE : Mint the utility tokens at /mint-underlying for the
+                  issue token to work
+                </u>
+              </h4>
               <br />
               <h4>1. Approve all tokens for transfer</h4>
               <h4>2. Mint index tokens!</h4>
@@ -590,6 +620,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-evenly",
+                  flexWrap: "wrap",
                 }}
               >
                 <Button variant="light" color="indigo" onClick={approveTokens}>
@@ -611,7 +642,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
                     Approve Tokens
                   </span>
                 </Button>
-
+                <br />
                 <Button color="indigo" onClick={contractFunctionIssueToken}>
                   <span
                     className="create-token--btn"
@@ -628,9 +659,11 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
                         marginRight: "10px",
                       }}
                     ></span>
-                    Issue Tokens
+                    Mint Tokens
                   </span>
                 </Button>
+                <br />
+
                 <Button
                   variant="light"
                   color="red"
