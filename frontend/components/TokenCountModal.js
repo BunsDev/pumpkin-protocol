@@ -16,7 +16,9 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
   const [underlyingTokens, setUnderlyingTokens] = useState([]);
   const [tokenRatios, setTokenRatios] = useState([]);
   const { runContractFunction } = useWeb3Contract();
-  const contractFunctionIssueToken = () => {
+  const { enableWeb3 } = useMoralis();
+  const contractFunctionIssueToken = async () => {
+    const Web3 = await enableWeb3();
     runContractFunction({
       params: {
         abi: PUMPKIN_ABI,
@@ -24,7 +26,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
         functionName: "issueToken",
         params: {
           _tokenAddress: tokenAddress,
-          amount: ethers.utils.parseUnits(tokenAmount.toString(), "ether"),
+          amount: ethers.utils.parseEther("100"),
         },
       },
       onError: error => console.log(error),
@@ -76,14 +78,6 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
                 "ether"
               )
               .toString()
-          );
-          console.log(
-            ethers.BigNumber.from(
-              parseFloat(
-                ethers.utils.formatEther(parseInt(item._hex).toString()) *
-                  tokenAmount
-              ).toString()
-            )
           );
         });
         setTokenRatios(data);
@@ -518,7 +512,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
         );
       }
 
-      // await contractFunctionIssueToken();
+      contractFunctionIssueToken();
     } catch (err) {
       window.alert(err);
     }
@@ -643,6 +637,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
           {/* {ethers.utils.parseUnits(tokenAmount.toString(), "ether").toString()} */}
         </motion.div>
       )}
+      {ethers.utils.parseEther("1").toString()}
     </>
   );
 };
