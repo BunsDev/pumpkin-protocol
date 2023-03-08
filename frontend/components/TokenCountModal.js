@@ -17,6 +17,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
   const [tokenRatios, setTokenRatios] = useState([]);
   const { runContractFunction } = useWeb3Contract();
   const { enableWeb3 } = useMoralis();
+
   const contractFunctionIssueToken = async () => {
     const Web3 = await enableWeb3();
     runContractFunction({
@@ -26,7 +27,8 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
         functionName: "issueToken",
         params: {
           _tokenAddress: tokenAddress,
-          amount: ethers.utils.parseEther(tokenAmount.toString()).toString(),
+          //   amount: ethers.utils.parseEther(tokenAmount.toString()).toString(),
+          amount: ethers.utils.parseEther("1"),
         },
       },
       onError: error => console.log(error),
@@ -84,7 +86,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       },
     });
   };
-  const issueTokens = async () => {
+  const approveTokens = async () => {
     try {
       const USDCAddress = "0x73778d5569E3798360C0F557CeB549092759A029";
       const WETHAddress = "0x31bF40f5642BCC6d41f28cccB2ADFB735722Bb30";
@@ -106,11 +108,8 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
 
       if (tokenArrayLength >= 1 && underlyingTokens[0] == USDCAddress) {
         const USDCWithSigner = USDC.connect(signer);
-        // parseFloat((ethers.utils.formatEther(parseInt(item._hex).toString())) * tokenAmount)
-        // ethers.utils.parseUnits(parseFloat((ethers.utils.formatEther(parseInt(tokenRatios[0]._hex).toString())) * tokenAmount).toString(), "ether").toString()
-        //
         await USDCWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -126,7 +125,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 2 && underlyingTokens[1] == USDCAddress) {
         const USDCWithSigner = USDC.connect(signer);
         await USDCWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -142,7 +141,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 3 && underlyingTokens[2] == USDCAddress) {
         const USDCWithSigner = USDC.connect(signer);
         await USDCWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -158,7 +157,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 4 && underlyingTokens[3] == USDCAddress) {
         const USDCWithSigner = USDC.connect(signer);
         await USDCWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -174,7 +173,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 5 && underlyingTokens[4] == USDCAddress) {
         const USDCWithSigner = USDC.connect(signer);
         await USDCWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -191,7 +190,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 1 && underlyingTokens[0] == WETHAddress) {
         const WETHWithSigner = WETH.connect(signer);
         await WETHWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -207,7 +206,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 2 && underlyingTokens[1] == WETHAddress) {
         const WETHWithSigner = WETH.connect(signer);
         await WETHWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -223,7 +222,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 3 && underlyingTokens[2] == WETHAddress) {
         const WETHWithSigner = WETH.connect(signer);
         await WETHWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -239,7 +238,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 4 && underlyingTokens[3] == WETHAddress) {
         const WETHWithSigner = WETH.connect(signer);
         await WETHWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -255,7 +254,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 5 && underlyingTokens[4] == WETHAddress) {
         const WETHWithSigner = WETH.connect(signer);
         await WETHWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -272,7 +271,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 1 && underlyingTokens[0] == WBTCAddress) {
         const WBTCWithSigner = WBTC.connect(signer);
         await WBTCWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -288,7 +287,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 2 && underlyingTokens[1] == WBTCAddress) {
         const WBTCWithSigner = WBTC.connect(signer);
         await WBTCWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -304,7 +303,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 3 && underlyingTokens[2] == WBTCAddress) {
         const WBTCWithSigner = WBTC.connect(signer);
         await WBTCWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -320,7 +319,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 4 && underlyingTokens[3] == WBTCAddress) {
         const WBTCWithSigner = WBTC.connect(signer);
         await WBTCWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -336,7 +335,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 5 && underlyingTokens[4] == WBTCAddress) {
         const WBTCWithSigner = WBTC.connect(signer);
         await WBTCWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -353,7 +352,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 1 && underlyingTokens[0] == WFTMAddress) {
         const WFTMWithSigner = WFTM.connect(signer);
         await WFTMWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -369,7 +368,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 2 && underlyingTokens[1] == WFTMAddress) {
         const WFTMWithSigner = WFTM.connect(signer);
         await WFTMWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -385,7 +384,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 3 && underlyingTokens[2] == WFTMAddress) {
         const WFTMWithSigner = WFTM.connect(signer);
         await WFTMWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -401,7 +400,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 4 && underlyingTokens[3] == WFTMAddress) {
         const WFTMWithSigner = WFTM.connect(signer);
         await WFTMWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -417,7 +416,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 5 && underlyingTokens[4] == WFTMAddress) {
         const WFTMWithSigner = WFTM.connect(signer);
         await WFTMWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -434,7 +433,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 1 && underlyingTokens[0] == AAVEAddress) {
         const AAVEWithSigner = AAVE.connect(signer);
         await AAVEWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -450,7 +449,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 2 && underlyingTokens[1] == AAVEAddress) {
         const AAVEWithSigner = AAVE.connect(signer);
         await AAVEWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -466,7 +465,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 3 && underlyingTokens[2] == AAVEAddress) {
         const AAVEWithSigner = AAVE.connect(signer);
         await AAVEWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -482,7 +481,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 4 && underlyingTokens[3] == AAVEAddress) {
         const AAVEWithSigner = AAVE.connect(signer);
         await AAVEWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -498,7 +497,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       if (tokenArrayLength >= 5 && underlyingTokens[4] == AAVEAddress) {
         const AAVEWithSigner = AAVE.connect(signer);
         await AAVEWithSigner.approve(
-          PumpkinAddress,
+          tokenAddress,
           ethers.utils
             .parseUnits(
               parseFloat(
@@ -512,7 +511,16 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
         );
       }
 
-      contractFunctionIssueToken();
+      //   const USDCWithSigner = USDC.connect(signer);
+      //   await USDCWithSigner.approve(tokenAddress, ethers.utils.parseEther("1"));
+      //   const WETHWithSigner = WETH.connect(signer);
+      //   await WETHWithSigner.approve(tokenAddress, ethers.utils.parseEther("1"));
+      //   const WBTCWithSigner = WBTC.connect(signer);
+      //   await WBTCWithSigner.approve(tokenAddress, ethers.utils.parseEther("1"));
+      //   const WFTMWithSigner = WFTM.connect(signer);
+      //   await WFTMWithSigner.approve(tokenAddress, ethers.utils.parseEther("1"));
+      //   const AAVEWithSigner = AAVE.connect(signer);
+      //   await AAVEWithSigner.approve(tokenAddress, ethers.utils.parseEther("1"));
     } catch (err) {
       window.alert(err);
     }
@@ -584,7 +592,27 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
                   justifyContent: "space-evenly",
                 }}
               >
-                <Button variant="light" color="indigo" onClick={issueTokens}>
+                <Button variant="light" color="indigo" onClick={approveTokens}>
+                  <span
+                    className="create-token--btn"
+                    style={{
+                      fontSize: "1.5rem",
+                      textDecoration: "none !important",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <IoIosCreate></IoIosCreate>
+                    <span
+                      style={{
+                        marginRight: "10px",
+                      }}
+                    ></span>
+                    Approve Tokens
+                  </span>
+                </Button>
+
+                <Button color="indigo" onClick={contractFunctionIssueToken}>
                   <span
                     className="create-token--btn"
                     style={{
@@ -603,7 +631,6 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
                     Issue Tokens
                   </span>
                 </Button>
-
                 <Button
                   variant="light"
                   color="red"
