@@ -1205,6 +1205,9 @@ hr {
   bottom: 0;
   z-index: 900;
 }
+.token-addresses {
+  font-size: 1rem;
+}
 
 @media screen and (max-width: 768px) {
   .token-slider {
