@@ -10,10 +10,28 @@ import { PumpkinAddress } from "../constants/PumpkinAddress";
 import { ethers } from "ethers";
 import { fadeInUp, routeAnimation, stagger } from "../utils/animations";
 import { motion } from "framer-motion";
+import { useNotification } from "web3uikit";
 const RedeemTokenModal = ({ redeemTokenModal, setRedeemTokenModal }) => {
   const { runContractFunction } = useWeb3Contract();
+  const dispatch = useNotification();
   const [tokenAddress, setTokenAddress] = useState("");
   const [tokenRedeemAmount, setTokenRedeemAmount] = useState(0);
+  const successNotification = msg => {
+    dispatch({
+      type: "success",
+      message: `${msg} Successfully`,
+      title: `${msg}`,
+      position: "bottomR",
+    });
+  };
+  const failureNotification = msg => {
+    dispatch({
+      type: "error",
+      message: `${msg} ( View console for more info )`,
+      title: `${msg}`,
+      position: "bottomR",
+    });
+  };
   const redeemToken = async () => {
     runContractFunction({
       params: {
@@ -28,8 +46,12 @@ const RedeemTokenModal = ({ redeemTokenModal, setRedeemTokenModal }) => {
           ),
         },
       },
-      onError: error => console.log(error),
+      onError: error => {
+        failureNotification(error.message);
+        console.log(error);
+      },
       onSuccess: data => {
+        successNotification("Tokens Redeemed");
         console.log(data);
       },
     });

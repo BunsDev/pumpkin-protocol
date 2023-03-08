@@ -48,6 +48,14 @@ const ViewTokens = () => {
       position: "bottomR",
     });
   };
+  const failureNotification = msg => {
+    dispatch({
+      type: "error",
+      message: `${msg} ( View console for more info )`,
+      title: `${msg}`,
+      position: "bottomR",
+    });
+  };
   async function getNames() {
     runContractFunction({
       params: {
@@ -95,7 +103,10 @@ const ViewTokens = () => {
           },
         },
         //
-        onError: error => console.log(error),
+        onError: error => {
+          failureNotification(error.message);
+          console.log(error);
+        },
         onSuccess: data => {
           console.log(data);
           setTokens(data);

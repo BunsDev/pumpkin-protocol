@@ -46,7 +46,14 @@ const CreateIndexToken = () => {
       position: "bottomR",
     });
   };
-
+  const failureNotification = msg => {
+    dispatch({
+      type: "error",
+      message: `${msg} ( View console for more info )`,
+      title: `${msg}`,
+      position: "bottomR",
+    });
+  };
   const checkTokenRatio = () => {
     const sum = usdc + weth + wbtc + wftm + aave;
     console.log(sum);
@@ -101,7 +108,10 @@ const CreateIndexToken = () => {
           _symbol: tokenSymbol,
         },
       },
-      onError: error => console.log(error),
+      onError: error => {
+        failureNotification(error.message);
+        console.log(error);
+      },
       onSuccess: data => {
         console.log(data);
         successNotification(`Index Token Created`);
@@ -111,12 +121,6 @@ const CreateIndexToken = () => {
   };
 
   const calculateIndexTokenPrice = () => {
-    // console.log(`usdc : ${usdc}`);
-    // console.log(`wbtc : ${wbtc}`);
-    // console.log(`weth : ${weth}`);
-    // console.log(`wftm : ${wftm}`);
-    // console.log(`aave : ${aave}`);
-
     const price =
       (usdc / 100) *
         parseFloat(coinPriceData[tokenSymbolAddress.usdc.id]?.usd) +

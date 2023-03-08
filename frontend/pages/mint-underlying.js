@@ -33,6 +33,14 @@ const MintUnderlying = () => {
       position: "bottomR",
     });
   };
+  const failureNotification = msg => {
+    dispatch({
+      type: "error",
+      message: `${msg} ( View console for more info )`,
+      title: `${msg}`,
+      position: "bottomR",
+    });
+  };
   const mintUtilityTokens = async () => {
     const Web3 = await enableWeb3();
     runContractFunction({
@@ -42,7 +50,10 @@ const MintUnderlying = () => {
         functionName: "mintAllTokens",
         params: {},
       },
-      onError: error => console.log(error),
+      onError: error => {
+        failureNotification(error.message);
+        console.log(error);
+      },
       onSuccess: data => {
         console.log(data);
         successNotification("Utility Tokens Minted");
