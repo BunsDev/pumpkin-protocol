@@ -26,7 +26,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
         functionName: "issueToken",
         params: {
           _tokenAddress: tokenAddress,
-          amount: ethers.utils.parseEther("100"),
+          amount: ethers.utils.parseEther(tokenAmount.toString()).toString(),
         },
       },
       onError: error => console.log(error),
@@ -637,7 +637,6 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
           {/* {ethers.utils.parseUnits(tokenAmount.toString(), "ether").toString()} */}
         </motion.div>
       )}
-      {ethers.utils.parseEther("1").toString()}
     </>
   );
 };
