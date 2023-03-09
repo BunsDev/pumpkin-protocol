@@ -19,7 +19,6 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
   const [tokenRatios, setTokenRatios] = useState([]);
   const { runContractFunction } = useWeb3Contract();
   const { enableWeb3 } = useMoralis();
-  const [tokenArrayLength, setTokenArrayLength] = useState(0);
   const USDCAddress = "0x73778d5569E3798360C0F557CeB549092759A029";
   const WETHAddress = "0x31bF40f5642BCC6d41f28cccB2ADFB735722Bb30";
   const WBTCAddress = "0x7FA0D30b30aF032bd1d8453603D7Df948021eA60";
@@ -94,7 +93,6 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       onError: error => console.log(error),
       onSuccess: data => {
         setTokenRatios(data);
-
         console.log(data);
       },
     });
@@ -117,11 +115,8 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       const WBTC = new ethers.Contract(WBTCAddress, ERC20_ABI, provider);
       const WFTM = new ethers.Contract(WFTMAddress, ERC20_ABI, provider);
       const AAVE = new ethers.Contract(AAVEAddress, ERC20_ABI, provider);
-      //   const tokenArrayLength = tokenRatios.length;
-      setTokenArrayLength(tokenRatios.length);
+      const tokenArrayLength = tokenRatios.length;
       console.log(tokenArrayLength);
-      if (tokenArrayLength == 0) return;
-
       if (tokenArrayLength >= 1 && underlyingTokens[0] == USDCAddress) {
         const USDCWithSigner = USDC.connect(signer);
         await USDCWithSigner.approve(
