@@ -53,6 +53,7 @@
 3. Paste the contract address, and then an amount, try around 100 tokens or so <br/>
 4. Click "Approve Tokens" to approve all the ERC20's that make up your index token. Accept all transactions (will be 1-5 transactions) <br/>
 5. If sucessfully approved, you should be able to click the "Mint Tokens" button to issue new tokens.
+## (NOTE - SOMETIMES DUE TO DELAY IN FETCHING USER MIGHT NEED TO RE-CLICK THE APPROVE BUTTON)
 #### 5. Try Claiming Streaming Fee
 1. Issue an index token on two or more different addresses <br/>
 2. Click the "Claim Fee" Button.  <br/>
