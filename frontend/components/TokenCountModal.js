@@ -44,7 +44,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
         functionName: "issueToken",
         params: {
           _tokenAddress: tokenAddress,
-          amount: ethers.utils.parseEther(tokenAmount.toString()).toString(),
+          amount: ethers.utils.parseEther(tokenAmount.toString()),
           // amount: ethers.utils.parseEther("1"),
         },
       },
