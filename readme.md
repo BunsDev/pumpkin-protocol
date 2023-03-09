@@ -38,7 +38,7 @@
 
 ##### 🐺 Security Auditing
 
-# How to Try
+# Try the website on fantom testnet
 #### 1. Mint Test Tokens
 1. Click "Utility Faucet" to mint test erc20's to interact with pumpkin. <br/>
 2. Click the 'Mint Utility Tokens' button to start the transaction. 1000 USDC, WETH, WBTC, WFTM, and AAVE will be sent to your wallet.
