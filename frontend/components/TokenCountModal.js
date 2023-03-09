@@ -19,6 +19,13 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
   const [tokenRatios, setTokenRatios] = useState([]);
   const { runContractFunction } = useWeb3Contract();
   const { enableWeb3 } = useMoralis();
+  const [tokenArrayLength, setTokenArrayLength] = useState(0);
+  const USDCAddress = "0x73778d5569E3798360C0F557CeB549092759A029";
+  const WETHAddress = "0x31bF40f5642BCC6d41f28cccB2ADFB735722Bb30";
+  const WBTCAddress = "0x7FA0D30b30aF032bd1d8453603D7Df948021eA60";
+  const WFTMAddress = "0xeF35e201aaBEFe47Ff3e01c87ef6D35878588B0C";
+  const AAVEAddress = "0x415cE4e20bD34F9620a926db1B6a9ca08424FCdb";
+
   const successNotification = msg => {
     dispatch({
       type: "success",
@@ -58,7 +65,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       },
     });
   };
-  const getUnderlyingTokens = async () => {
+  const getUnderlyingTokens = () => {
     runContractFunction({
       params: {
         abi: PUMPKIN_ABI,
@@ -75,7 +82,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       },
     });
   };
-  const getUnderlyingTokenRatios = async () => {
+  const getUnderlyingTokenRatios = () => {
     runContractFunction({
       params: {
         abi: PUMPKIN_ABI,
@@ -87,36 +94,22 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       },
       onError: error => console.log(error),
       onSuccess: data => {
-        console.log(data);
-        // do something
-        // set the array with bignumber value directly, while using the percentage convert it in the if else
-        data.map(item => {
-          console.log(
-            ethers.utils
-              .parseUnits(
-                parseFloat(
-                  ethers.utils.formatEther(parseInt(item._hex).toString()) *
-                    tokenAmount
-                ).toString(),
-                "ether"
-              )
-              .toString()
-          );
-        });
         setTokenRatios(data);
+
+        console.log(data);
       },
     });
   };
   const approveTokens = async () => {
     try {
-      const USDCAddress = "0x73778d5569E3798360C0F557CeB549092759A029";
-      const WETHAddress = "0x31bF40f5642BCC6d41f28cccB2ADFB735722Bb30";
-      const WBTCAddress = "0x7FA0D30b30aF032bd1d8453603D7Df948021eA60";
-      const WFTMAddress = "0xeF35e201aaBEFe47Ff3e01c87ef6D35878588B0C";
-      const AAVEAddress = "0x415cE4e20bD34F9620a926db1B6a9ca08424FCdb";
-      await getUnderlyingTokens();
+      await window.ethereum.enable();
       await getUnderlyingTokenRatios();
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      await getUnderlyingTokens();
+
+      const provider = new ethers.providers.Web3Provider(
+        window.ethereum,
+        "any"
+      );
       await provider.send("eth_requestAccounts", []);
       const signer = provider.getSigner();
 
@@ -125,7 +118,10 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
       const WBTC = new ethers.Contract(WBTCAddress, ERC20_ABI, provider);
       const WFTM = new ethers.Contract(WFTMAddress, ERC20_ABI, provider);
       const AAVE = new ethers.Contract(AAVEAddress, ERC20_ABI, provider);
-      const tokenArrayLength = tokenRatios.length;
+      //   const tokenArrayLength = tokenRatios.length;
+      setTokenArrayLength(tokenRatios.length);
+      console.log(tokenArrayLength);
+      if (tokenArrayLength == 0) return;
 
       if (tokenArrayLength >= 1 && underlyingTokens[0] == USDCAddress) {
         const USDCWithSigner = USDC.connect(signer);
@@ -531,17 +527,6 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
             .toString()
         );
       }
-
-      //   const USDCWithSigner = USDC.connect(signer);
-      //   await USDCWithSigner.approve(tokenAddress, ethers.utils.parseEther("1"));
-      //   const WETHWithSigner = WETH.connect(signer);
-      //   await WETHWithSigner.approve(tokenAddress, ethers.utils.parseEther("1"));
-      //   const WBTCWithSigner = WBTC.connect(signer);
-      //   await WBTCWithSigner.approve(tokenAddress, ethers.utils.parseEther("1"));
-      //   const WFTMWithSigner = WFTM.connect(signer);
-      //   await WFTMWithSigner.approve(tokenAddress, ethers.utils.parseEther("1"));
-      //   const AAVEWithSigner = AAVE.connect(signer);
-      //   await AAVEWithSigner.approve(tokenAddress, ethers.utils.parseEther("1"));
     } catch (err) {
       //   window.alert(err);
       failureNotification(err.message);
@@ -599,7 +584,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
               </div>
               <div className="index-token">
                 <div className="token-label--container">
-                  <label className="token-name--label">Token Count - </label>
+                  <label className="token-name--label">Token Amount - </label>
                 </div>
                 <div className="token-slider">
                   <input
@@ -607,7 +592,7 @@ const TokenCountModal = ({ tokenCountModal, setTokenCountModal }) => {
                     type="number"
                     className="token-name"
                     id="token-name"
-                    placeholder="1"
+                    placeholder="Amount in ETH"
                     onChange={e => {
                       setTokenAmount(e.target.value);
                     }}
